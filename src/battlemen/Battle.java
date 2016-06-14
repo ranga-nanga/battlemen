@@ -1,34 +1,77 @@
 package battlemen;
 
+import java.util.Scanner;
+
 import hero.Hero;
 import hero.Rogue;
 import monster.Monster;
 
 public class Battle {
 	public static void main(String[] args) {
-		//Initialize the hero and any monsters he will face
-		Rogue Harlow = new Rogue(5, 5, 1);
-		Hero Doraleous = new Hero(6, 6, 1);
+		Scanner input = new Scanner(System.in);
+		//Initialize the heroes and any monsters they will face
+		System.out.print("How many players?: ");
+		String in = input.nextLine().trim();
+		
+		//Setup all heroes
+		Object[] players = new Object[Integer.parseInt(in)];
+		for(int i = 0; i < Integer.parseInt(in); i++){
+			System.out.print('\n' + "Name player " + (i+1) + ": ");
+			String name = input.nextLine().trim();
+			System.out.print("Set " + name + "'s health: ");
+			int health = Integer.parseInt(input.nextLine().trim());
+			System.out.print("Set " + name + "'s damage: ");
+			int damage = Integer.parseInt(input.nextLine().trim());
+			System.out.print("Pick " + name + "'s class: ");
+			String playerClass = input.nextLine().trim();
+			//Ideally add a switch statement here to create class based on input
+			players[i] = new Hero(name, health, health, damage);
+		}
+		
+		Rogue Harlow = new Rogue("Harlow", 5, 5, 1);
+		Hero Doraleous = new Hero("Doraleous", 6, 6, 1);
 		Monster Angorus = new Monster(20, 1);
-		Monster Godzilla = new Monster(5, 1);
+		int action = 0;
+		
+		//Choose an action on player turn
 		while(Angorus.getMonsterHealth() >= 0){
-			if(Harlow.getHeroHealth() > 0){
-				Harlow.sneakAttack(Angorus);
-			}else{
-				System.out.println("Harlow is currently unable to fight at this time.");
-				}
-			if(Doraleous.getHeroHealth() > 0){
-				Doraleous.attacksMonster(Angorus);
-			}else{
-				System.out.println("Doraleous is currently unable to fight at this time.");
+			System.out.println("1. Harlow attacks");
+			System.out.println("2. Harlow heals");
+			System.out.println("3. Doraleous attacks");
+			System.out.println("4. Doraleous heals");
+			System.out.print("What will you do?: ");
+			in = input.nextLine().trim();
+			action = Integer.parseInt(in);
+			switch(action){
+				case 1:
+					if(Harlow.getHeroHealth() > 0){
+						Harlow.sneakAttack(Angorus);
+						System.out.println("Angorus health now at: " + Angorus.getMonsterHealth());
+					}else{
+						System.out.println("Harlow is currently unable to fight at this time.");
+					}
+					break;
+				case 2:
+					Harlow.usePotion();
+					break;
+				case 3:
+					if(Doraleous.getHeroHealth() > 0){
+						Doraleous.attacksMonster(Angorus);
+						System.out.println("Angorus health now at: " + Angorus.getMonsterHealth());
+					}else{
+						System.out.println("Doraleous is currently unable to fight at this time.");
+					}
+					break;
+				case 4:
+					Doraleous.usePotion();
+					break;
 			}
-			Angorus.attacksHero(Harlow);
 			System.out.println("Harlow health: " + Harlow.getHeroHealth());
 			System.out.println("Doraleous health: " + Doraleous.getHeroHealth());
 			int currentMonsterHealth = Angorus.getMonsterHealth();
 			if(currentMonsterHealth > 0){
-				System.out.println("Angorus health now at: " + Angorus.getMonsterHealth());
-				System.out.println("Godzilla health now at: " + Godzilla.getMonsterHealth());
+				System.out.println("Angorus attacks");
+				Angorus.attacksHero(Harlow);
 			} else {
 				System.out.println("The monster has been slain!");
 			}

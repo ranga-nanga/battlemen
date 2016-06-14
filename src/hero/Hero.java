@@ -10,15 +10,25 @@ public class Hero {
 		public int maxHeroHealth = 5;
 		public int heroHealth = 5;
 		public int heroDamage = 2;
+		public String heroName = "";
 			
 		/*
 		 * Constructor is called when initializing a new hero
 		 * Pass in values for health and damage when creating to override default values
 		 */
-		public Hero(int maxHealth, int health, int dmg){
+		public Hero(String name, int maxHealth, int health, int dmg){
+			this.heroName = name;
 			this.maxHeroHealth = maxHealth;
 			this.heroHealth = health;
 			this.heroDamage = dmg;
+		}
+
+		public String getHeroName(){
+			return heroName;
+		}
+		
+		public void setHeroName(String newName){
+			this.heroName = newName;
 		}
 		
 		public int getHeroHealth(){
