@@ -12,8 +12,16 @@ public class Battle {
 		Monster Angorus = new Monster(20, 1);
 		Monster Godzilla = new Monster(5, 1);
 		while(Angorus.getMonsterHealth() >= 0){
-			Harlow.sneakAttack(Angorus);
-			Doraleous.attacksMonster(Angorus);
+			if(Harlow.getHeroHealth() > 0){
+				Harlow.sneakAttack(Angorus);
+			}else{
+				System.out.println("Harlow is currently unable to fight at this time.");
+				}
+			if(Doraleous.getHeroHealth() > 0){
+				Doraleous.attacksMonster(Angorus);
+			}else{
+				System.out.println("Doraleous is currently unable to fight at this time.");
+			}
 			Angorus.attacksHero(Harlow);
 			System.out.println("Harlow health: " + Harlow.getHeroHealth());
 			System.out.println("Doraleous health: " + Doraleous.getHeroHealth());
@@ -27,6 +35,5 @@ public class Battle {
 		}
 		Harlow.newMaxHeroHealth();
 	}
-	
 }
 
