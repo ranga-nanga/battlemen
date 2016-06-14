@@ -22,10 +22,16 @@ public class Battle {
 			int health = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Set " + name + "'s damage: ");
 			int damage = Integer.parseInt(input.nextLine().trim());
-			System.out.print("Pick " + name + "'s class: ");
+			System.out.print("Pick " + name + "'s class(Hero, Rogue): ");
 			String playerClass = input.nextLine().trim();
-			//Ideally add a switch statement here to create class based on input
-			players[i] = new Hero(name, health, health, damage);
+			switch(playerClass){
+				case "Hero":
+					players[i] = new Hero(name, health, health, damage);
+					break;
+				case "Rogue":
+					players[i] = new Rogue(name, health, health, damage);
+					break;
+			}
 		}
 		
 		Rogue Harlow = new Rogue("Harlow", 5, 5, 1);
@@ -41,9 +47,8 @@ public class Battle {
 			System.out.println("4. Doraleous heals");
 			System.out.print("What will you do?: ");
 			in = input.nextLine().trim();
-			action = Integer.parseInt(in);
-			switch(action){
-				case 1:
+			switch(in){
+				case "1":
 					if(Harlow.getHeroHealth() > 0){
 						Harlow.sneakAttack(Angorus);
 						System.out.println("Angorus health now at: " + Angorus.getMonsterHealth());
@@ -51,10 +56,10 @@ public class Battle {
 						System.out.println("Harlow is currently unable to fight at this time.");
 					}
 					break;
-				case 2:
+				case "2":
 					Harlow.usePotion();
 					break;
-				case 3:
+				case "3":
 					if(Doraleous.getHeroHealth() > 0){
 						Doraleous.attacksMonster(Angorus);
 						System.out.println("Angorus health now at: " + Angorus.getMonsterHealth());
@@ -62,7 +67,7 @@ public class Battle {
 						System.out.println("Doraleous is currently unable to fight at this time.");
 					}
 					break;
-				case 4:
+				case "4":
 					Doraleous.usePotion();
 					break;
 			}
