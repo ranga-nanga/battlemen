@@ -1,12 +1,14 @@
-package battlemen;
+package monster;
+
+import hero.Hero;
 
 public class Monster {
 	/*
 	 * Default values for monsterhealth and damage
 	 * These values are initialized when you create a new Monster in your Battle class
 	 */
-	static int monsterHealth = 5;
-	static int monsterDamage = 1;
+	public static int monsterHealth = 5;
+	public static int monsterDamage = 1;
 	
 	public int getMonsterHealth(){
 		return monsterHealth;

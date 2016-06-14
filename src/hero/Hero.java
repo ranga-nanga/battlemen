@@ -1,13 +1,15 @@
-package battlemen;
+package hero;
+
+import monster.Monster;
 
 public class Hero {
 	/*
 	 * Default values for maxhealth, health and damage
 	 * These values are initialized when you create a new Hero in your Battle class
 	 */
-		static int maxHeroHealth = 5;
-		static int heroHealth = 5;
-		static int heroDamage = 2;
+		public static int maxHeroHealth = 5;
+		public static int heroHealth = 5;
+		public static int heroDamage = 2;
 			
 		public int getHeroHealth(){
 			return heroHealth;
