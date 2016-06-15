@@ -34,11 +34,29 @@ public class Battle {
 			}
 		}
 		
+		while(Angorus.getMonsterHealth() >=0){
+			for( i=0; i < players.length; i++){
+				System.out.println(players[i].getHeroName() + " - SNEAK ATTACK");
+				System.out.println(players[i].getHeroName() + " - HEAL");
+				in = input.nextLine().trim();
+				switch (in){
+				case "SNEAK ATTACK":
+					if(players[i].getHeroHealth() > 0){
+						players[i].sneakAttack(Angorus);
+						System.out.println("Angorus health now at: " + Angorus.getMonsterHealth());
+					}
+				}
+				
+					
+		}
+			
+		}
+		
 		Rogue Harlow = new Rogue("Harlow", 5, 5, 1);
 		Hero Doraleous = new Hero("Doraleous", 6, 6, 1);
 		Monster Angorus = new Monster(20, 1);
 		int action = 0;
-		
+	/*	
 		//Choose an action on player turn
 		while(Angorus.getMonsterHealth() >= 0){
 			System.out.println("1. Harlow attacks");
@@ -84,4 +102,4 @@ public class Battle {
 		Harlow.newMaxHeroHealth();
 	}
 }
-
+*/
