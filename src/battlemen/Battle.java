@@ -14,7 +14,7 @@ public class Battle {
 		String in = input.nextLine().trim();
 		
 		//Setup all heroes
-		Object[] players = new Object[Integer.parseInt(in)];
+		Hero[] players = new Hero[Integer.parseInt(in)];
 		for(int i = 0; i < Integer.parseInt(in); i++){
 			System.out.print('\n' + "Name player " + (i+1) + ": ");
 			String name = input.nextLine().trim();
@@ -33,9 +33,9 @@ public class Battle {
 					break;
 			}
 		}
-		
+		Monster Angorus = new Monster(20, 1);
 		while(Angorus.getMonsterHealth() >=0){
-			for( i=0; i < players.length; i++){
+			for(int i=0; i < players.length; i++){
 				System.out.println(players[i].getHeroName() + " - SNEAK ATTACK");
 				System.out.println(players[i].getHeroName() + " - HEAL");
 				in = input.nextLine().trim();
@@ -51,12 +51,12 @@ public class Battle {
 		}
 			
 		}
-		
+	/*	
 		Rogue Harlow = new Rogue("Harlow", 5, 5, 1);
 		Hero Doraleous = new Hero("Doraleous", 6, 6, 1);
 		Monster Angorus = new Monster(20, 1);
 		int action = 0;
-	/*	
+	
 		//Choose an action on player turn
 		while(Angorus.getMonsterHealth() >= 0){
 			System.out.println("1. Harlow attacks");
@@ -100,6 +100,7 @@ public class Battle {
 			}
 		}
 		Harlow.newMaxHeroHealth();
+		*/
 	}
 }
-*/
+
