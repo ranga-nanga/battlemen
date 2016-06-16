@@ -1,8 +1,8 @@
-package hero;
+package character;
 
 import monster.Monster;
 
-public class Rogue extends Hero{
+public class Rogue extends Character{
 	
 	public static int rogueDamage;
 	
@@ -18,7 +18,7 @@ public class Rogue extends Hero{
 	public void sneakAttack(Monster monster){
 		this.setHeroDamage(rogueDamage);
 		this.attacksMonster(monster);
-		this.setHeroDamage(heroDamage);
+		this.setHeroDamage(characterDamage);
 		//System.out.println("The monster took " + rogueDamage + " damage!");
 	}
 }
