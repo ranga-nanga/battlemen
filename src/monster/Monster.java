@@ -1,6 +1,6 @@
 package monster;
 
-import hero.Hero;
+import character.Character;
 
 public class Monster {
 	/*
@@ -35,11 +35,11 @@ public class Monster {
 			this.monsterDamage = newDamage;
 		}
 		
-		public void attacksHero(Hero hero){
-			int newHealth = hero.getHeroHealth() - this.monsterDamage;
-			hero.setHeroHealth(newHealth);
+		public void attacksHero(Character hero){
+			int newHealth = hero.getCharacterHealth() - this.monsterDamage;
+			hero.setCharacterHealth(newHealth);
 			System.out.println("You took " + this.monsterDamage + " damage!");
-			System.out.println("You have " + hero.heroHealth + " health left!");
+			System.out.println("You have " + hero.characterHealth + " health left!");
 		}
 		
 		void newMHealth(int heroHealth){

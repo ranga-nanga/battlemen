@@ -16,9 +16,9 @@ public class Rogue extends Character{
 	}
 
 	public void sneakAttack(Monster monster){
-		this.setHeroDamage(rogueDamage);
+		this.setCharacterDamage(rogueDamage);
 		this.attacksMonster(monster);
-		this.setHeroDamage(characterDamage);
+		this.setCharacterDamage(characterDamage);
 		//System.out.println("The monster took " + rogueDamage + " damage!");
 	}
 }
