@@ -16,9 +16,10 @@ public class Rogue extends Character{
 	}
 
 	public void sneakAttack(Monster monster){
+		int tempDmg = this.getCharacterDamage();
 		this.setCharacterDamage(rogueDamage);
 		this.attacksMonster(monster);
-		this.setCharacterDamage(characterDamage);
+		this.setCharacterDamage(tempDmg);
 		//System.out.println("The monster took " + rogueDamage + " damage!");
 	}
 }

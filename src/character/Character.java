@@ -57,7 +57,7 @@ public class Character {
 		
 		public  void usePotion(){
 			this.characterHealth += 3;
-			System.out.print("You heal for 3 points!");
+			System.out.print('\n' + "You heal for 3 points!");
 		}
 		
 		public void newMaxHeroHealth(){
