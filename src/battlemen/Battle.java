@@ -2,6 +2,7 @@ package battlemen;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Random;
 import java.util.Scanner;
 
 import character.FeathergaleKnight;
@@ -93,8 +94,12 @@ public class Battle {
 						}
 					}
 				}
+				
 			}
+			//makes it to where monster attacks a random person on the field
+			Angorus.attacksHero(players[new Random().nextInt(players.length)]);
 		}
+		
 	}
 }
 
