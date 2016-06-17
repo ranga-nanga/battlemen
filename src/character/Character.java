@@ -1,5 +1,7 @@
 package character;
 
+import java.util.Scanner;
+
 import monster.Monster;
 
 public class Character {
@@ -63,4 +65,6 @@ public class Character {
 			System.out.println("You leveled up! Your Max Health is now " + this.maxCharacterHealth + " !");
 			System.out.println("You currently have " + this.characterHealth + " HP out of " + this.maxCharacterHealth);
 		}
-}
+	
+		}
+
