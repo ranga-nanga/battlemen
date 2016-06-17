@@ -1,5 +1,6 @@
 package battlemen;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Scanner;
 
@@ -37,46 +38,63 @@ public class Battle {
 				break;
 			}
 		}
-			Monster Angorus = new Monster(20, 1);
-			while (Angorus.getMonsterHealth() >= 0) {
-				for (int i = 0; i < players.length; i++) {
-					System.out.println('\n' + "1. "+ players[i].getCharacterName()+ " attacksMonster");
-					System.out.println("2. " + players[i].getCharacterName()+ " usePotion");
-					Method[] actions = players[i].getClass().getDeclaredMethods();
-					int j = 1;
-					for (Method method : actions) {
-						System.out.println(j + ". " + players[i].getCharacterName() + " " + method.getName());
-						j++;
+		Monster Angorus = new Monster(20, 1);
+		while (Angorus.getMonsterHealth() >= 0) {
+			for (int i = 0; i < players.length; i++) {
+				System.out.println('\n' + "1. "+ players[i].getCharacterName()+ " attacksMonster");
+				System.out.println("2. " + players[i].getCharacterName()+ " usePotion");
+				Method[] actions = players[i].getClass().getDeclaredMethods();
+				int j = 1;
+				for (Method method : actions) {
+					System.out.println(j + ". " + players[i].getCharacterName() + " " + method.getName());
+					j++;
+				//moved below bracket to current position this was looping around the rest of the code
+				}
+				boolean actionFound = false;
+				while (actionFound == false) {
 					System.out.print("What will you do?: ");
 					in = input.nextLine().trim();
-					boolean actionFound = false;
-					while (actionFound == false) {
-						for (Method action : actions) {
-							if (action.equals(in)) {
-								if (in.contains("attacksMonster")
-										|| (in.contains("sneakAttack"))) {
-									
-				//getting weird errors that i'm not familiar with.
-				//not sure if you got this or not earlier, maybe i messed up the code somewhere else..?
+					
+					for (Method action : actions) {
+						//Have to call Character methods directly
+						if (in.contains("attacksMonster")){
+							players[i].attacksMonster(Angorus);
+							actionFound = true;
+						} else if(in.contains("usePotion")){
+							players[i].usePotion();
+							actionFound = true;
+						//there IS a getName method woops
+						} else if (action.getName().contains(in)) {
+							//Fixed errors using catch statements
+							if(in.contains("sneakAttack")) {
+								try {
 									action.invoke(players[i], Angorus);
-
-								} else {
-									action.invoke(players[i]);
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
 								}
-
-				//please tell me how to fix above code.				
-							} else if (action.equals(in)) {
-								actionFound = true;
 							} else {
-								System.out.println(players[i].getCharacterName()+ " can't do that!");
+								try {
+									action.invoke(players[i]);
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
 							}
-
+							actionFound = true;
+						} else {
+							System.out.println(players[i].getCharacterName()+ " can't do that!");
 						}
 					}
 				}
 			}
-			}
 		}
-	
+	}
 }
 
