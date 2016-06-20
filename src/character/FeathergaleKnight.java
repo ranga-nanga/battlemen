@@ -10,6 +10,7 @@ public class FeathergaleKnight extends Character{
 	}
 	
 	public void moralBoost(){
+		System.out.println("HUZZAH!");
 		
 	}
 }

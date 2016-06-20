@@ -20,6 +20,9 @@ public class Rogue extends Character{
 		this.setCharacterDamage(rogueDamage);
 		this.attacksMonster(monster);
 		this.setCharacterDamage(tempDmg);
-		//System.out.println("The monster took " + rogueDamage + " damage!");
+	}
+	
+	public void poisonStab(Monster monster){
+		monster.setPoison(true);
 	}
 }

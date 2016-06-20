@@ -9,6 +9,7 @@ public class Monster {
 	 */
 		public int monsterHealth = 5;
 		public int monsterDamage = 1;
+		public boolean poison = false;
 		
 		/*
 		 * Constructor is called when initializing a new hero
@@ -33,6 +34,16 @@ public class Monster {
 		
 		public void setMonsterDamage(int newDamage){
 			this.monsterDamage = newDamage;
+		}
+		
+		public void setPoison(boolean newPoison){
+			this.poison = newPoison;
+		}
+		
+		public void evaluate(){
+			if(poison == true){
+				this.monsterHealth--;
+			}
 		}
 		
 		public void attacksHero(Character hero){
