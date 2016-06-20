@@ -57,7 +57,10 @@ public class Character {
 		}
 		
 		public  void usePotion(){
-			this.characterHealth += 3;
+			int healthDifference = maxCharacterHealth - characterHealth;
+			if (healthDifference > 3){characterHealth += 3;
+					}else{characterHealth += maxCharacterHealth - characterHealth;
+			}
 			System.out.println("You heal for 3 points!");
 			System.out.println("You know have " + this.getCharacterHealth() + " health!");
 		}
