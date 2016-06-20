@@ -97,6 +97,8 @@ public class Battle {
 				
 			}
 			//makes it to where monster attacks a random person on the field
+			System.out.println('\n' + "The monster is attacking!");
+			Angorus.evaluate();
 			Angorus.attacksHero(players[new Random().nextInt(players.length)]);
 			System.out.println("\n");
 		}
