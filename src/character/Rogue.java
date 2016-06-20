@@ -24,5 +24,6 @@ public class Rogue extends Character{
 	
 	public void poisonStab(Monster monster){
 		monster.setPoison(true);
+		monster.setPoisonCounter(3);
 	}
 }

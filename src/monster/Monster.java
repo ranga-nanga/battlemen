@@ -9,6 +9,7 @@ public class Monster {
 	 */
 		public int monsterHealth = 5;
 		public int monsterDamage = 1;
+		public int poisonCounter = 0;
 		public boolean poison = false;
 		
 		/*
@@ -40,9 +41,17 @@ public class Monster {
 			this.poison = newPoison;
 		}
 		
+		public void setPoisonCounter(int newPoisonCounter){
+			this.poisonCounter = newPoisonCounter;
+		}
+		
 		public void evaluate(){
+			if(this.poisonCounter == 0){
+				this.poison = false;
+			}
 			if(poison == true){
 				this.monsterHealth--;
+				this.poisonCounter--;
 			}
 		}
 		
