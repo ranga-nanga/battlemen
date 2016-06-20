@@ -40,7 +40,7 @@ public class Battle {
 			}
 		}
 		Monster Angorus = new Monster(20, 1);
-		while (Angorus.getMonsterHealth() >= 0) {
+		while (Angorus.getMonsterHealth() > 0) {
 			for (int i = 0; i < players.length; i++) {
 				System.out.println('\n' + "1. "+ players[i].getCharacterName()+ " attacksMonster");
 				System.out.println("2. " + players[i].getCharacterName()+ " usePotion");
@@ -98,8 +98,15 @@ public class Battle {
 			}
 			//makes it to where monster attacks a random person on the field
 			Angorus.attacksHero(players[new Random().nextInt(players.length)]);
+			System.out.println("\n");
 		}
 		
+		System.out.println("Congratulations, you have defeated the Monster!");
+		for(Character player : players){player.newMaxHeroHealth();
+		}	
+		System.out.println("But what horrors await you in the days to come...?");
+		
 	}
+	
 }
 
