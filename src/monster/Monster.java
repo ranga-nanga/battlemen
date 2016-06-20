@@ -38,7 +38,7 @@ public class Monster {
 		public void attacksHero(Character hero){
 			int newHealth = hero.getCharacterHealth() - this.monsterDamage;
 			hero.setCharacterHealth(newHealth);
-			System.out.println(hero.getCharacterName() + "took " + this.monsterDamage + " damage!");
+			System.out.println(hero.getCharacterName() + " took " + this.monsterDamage + " damage!");
 			System.out.println(hero.getCharacterName() +" has " + hero.characterHealth + " health left!");
 		}
 		

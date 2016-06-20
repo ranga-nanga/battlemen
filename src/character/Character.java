@@ -53,11 +53,13 @@ public class Character {
 			int newHealth = monster.getMonsterHealth() - this.characterDamage;	
 			monster.setMonsterHealth(newHealth);
 			System.out.println("The monster took " + this.characterDamage + " damage!");
+			System.out.println("The monster has " + monster.getMonsterHealth() + " health left!");
 		}
 		
 		public  void usePotion(){
 			this.characterHealth += 3;
-			System.out.print('\n' + "You heal for 3 points!");
+			System.out.println("You heal for 3 points!");
+			System.out.println("You know have " + this.getCharacterHealth() + " health!");
 		}
 		
 		public void newMaxHeroHealth(){
