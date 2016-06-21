@@ -1,8 +1,8 @@
 package character;
 
-import monster.Monster;
+import battlemen.Fighter;
 
-public class Rogue extends Character{
+public class Rogue extends Fighter{
 	
 	public static int rogueDamage;
 	
@@ -10,20 +10,21 @@ public class Rogue extends Character{
 	 * This constructor calls the Hero constructor
 	 * because this class extends Hero 
 	 */
-	public Rogue(String name, int maxHealth, int health, int dmg) {
-		super(name, maxHealth, health, dmg);
+	public Rogue(String name, int maxHealth, int dmg) {
+		super(name, maxHealth, dmg);
 		rogueDamage = dmg * 2;
 	}
 
-	public void sneakAttack(Monster monster){
-		int tempDmg = this.getCharacterDamage();
-		this.setCharacterDamage(rogueDamage);
-		this.attacksMonster(monster);
-		this.setCharacterDamage(tempDmg);
+	public void sneakAttack(Fighter enemy){
+		int tempDmg = this.getFighterDamage();
+		this.setFighterDamage(rogueDamage);
+		this.attacks(enemy);
+		this.setFighterDamage(tempDmg);
 	}
 	
-	public void poisonStab(Monster monster){
-		monster.setPoison(true);
-		monster.setPoisonCounter(3);
+	public void poisonStab(Fighter enemy){
+		enemy.setPoison(true);
+		enemy.setPoisonCounter(3);
+		System.out.println(enemy.getFighterName() + " was poisoned!");
 	}
 }

@@ -5,10 +5,10 @@ import java.lang.reflect.Method;
 import java.util.Random;
 import java.util.Scanner;
 
+import character.Barbarian;
 import character.FeathergaleKnight;
 import character.Rogue;
-import character.Character;
-import monster.Monster;
+import battlemen.Fighter;
 
 public class Battle {
 	public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class Battle {
 		String in = input.nextLine().trim();
 
 		// Setup all Characteres
-		Character[] players = new Character[Integer.parseInt(in)];
+		Fighter[] players = new Fighter[Integer.parseInt(in)];
 		for (int i = 0; i < Integer.parseInt(in); i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
@@ -31,23 +31,26 @@ public class Battle {
 			String playerClass = input.nextLine().trim();
 		
 			switch (playerClass) {
-			case "FeathergaleKnight":
-				players[i] = new FeathergaleKnight(name, health, health, damage);
-				break;
-			case "Rogue":
-				players[i] = new Rogue(name, health, health, damage);
-				break;
+				case "FGK":
+					players[i] = new FeathergaleKnight(name, health, damage);
+					break;
+				case "Rogue":
+					players[i] = new Rogue(name, health, damage);
+					break;
+				case "Barbarian":
+					players[i] = new Barbarian(name, health, damage);
+					break;
 			}
 		}
-		Monster Angorus = new Monster(20, 1);
-		while (Angorus.getMonsterHealth() > 0) {
+		Fighter Angorus = new Fighter("Angorus", 20, 1);
+		while (Angorus.getFighterHealth() > 0) {
 			for (int i = 0; i < players.length; i++) {
-				System.out.println('\n' + "1. "+ players[i].getCharacterName()+ " attacksMonster");
-				System.out.println("2. " + players[i].getCharacterName()+ " usePotion");
+				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " attack");
+				System.out.println("2. " + players[i].getFighterName()+ " usePotion");
 				Method[] actions = players[i].getClass().getDeclaredMethods();
 				int j = 1;
 				for (Method method : actions) {
-					System.out.println(j + ". " + players[i].getCharacterName() + " " + method.getName());
+					System.out.println(j + ". " + players[i].getFighterName() + " " + method.getName());
 					j++;
 				//moved below bracket to current position this was looping around the rest of the code
 				}
@@ -56,18 +59,17 @@ public class Battle {
 					System.out.print("What will you do?: ");
 					in = input.nextLine().trim();
 					
-					for (Method action : actions) {
-						//Have to call Character methods directly
-						if (in.contains("attacksMonster")){
-							players[i].attacksMonster(Angorus);
-							actionFound = true;
-						} else if(in.contains("usePotion")){
-							players[i].usePotion();
-							actionFound = true;
-						//there IS a getName method woops
-						} else if (action.getName().contains(in)) {
-							//Fixed errors using catch statements
-							if(in.contains("sneakAttack")) {
+					if (in.contains("attack")){
+						players[i].attacks(Angorus);
+						actionFound = true;
+					} else if(in.contains("usePotion")){
+						players[i].usePotion();
+						actionFound = true;
+					} else {
+						for (Method action : actions) {
+							//Have to call Character methods directly
+							if (action.getName().contains(in)) {
+								//Fixed errors using catch statements
 								try {
 									action.invoke(players[i], Angorus);
 								} catch (IllegalAccessException e) {
@@ -77,20 +79,11 @@ public class Battle {
 								} catch (InvocationTargetException e) {
 									e.printStackTrace();
 								}
-							} else {
-								try {
-									action.invoke(players[i]);
-								} catch (IllegalAccessException e) {
-									e.printStackTrace();
-								} catch (IllegalArgumentException e) {
-									e.printStackTrace();
-								} catch (InvocationTargetException e) {
-									e.printStackTrace();
-								}
+								actionFound = true;
 							}
-							actionFound = true;
-						} else {
-							System.out.println(players[i].getCharacterName()+ " can't do that!");
+						}
+						if(actionFound == false){
+							System.out.println(players[i].getFighterName() + " can't do that!");
 						}
 					}
 				}
@@ -98,13 +91,19 @@ public class Battle {
 			}
 			//makes it to where monster attacks a random person on the field
 			System.out.println('\n' + "The monster is attacking!");
-			Angorus.evaluate();
-			Angorus.attacksHero(players[new Random().nextInt(players.length)]);
-			System.out.println("\n");
+			Angorus.attacks(players[new Random().nextInt(players.length)]);
 		}
 		
-		System.out.println("Congratulations, you have defeated the Monster!");
-		for(Character player : players){player.newMaxHeroHealth();
+		//Body count to show how many died fighting the monster(s)
+		System.out.println("RIP:");
+		for(Fighter player: players){
+			if(player.getFighterHealth() == 0){
+				System.out.println(player.getFighterName() + " died in combat.");
+			}
+		}
+		
+		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
+		for(Fighter player : players){player.newMaxFighterHealth();
 		}	
 		System.out.println("But what horrors await you in the days to come...?");
 		

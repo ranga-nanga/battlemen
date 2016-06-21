@@ -1,9 +1,11 @@
 package character;
 
-public class Barbarian extends Character{
+import battlemen.Fighter;
 
-	public Barbarian(String name, int maxHealth, int health, int dmg){
-		super(name, maxHealth, health, dmg);
+public class Barbarian extends Fighter{
+
+	public Barbarian(String name, int maxHealth, int dmg){
+		super(name, maxHealth, dmg);
 	}
 	
 }

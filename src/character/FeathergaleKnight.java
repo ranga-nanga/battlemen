@@ -1,12 +1,14 @@
 package character;
 
-public class FeathergaleKnight extends Character{
+import battlemen.Fighter;
+
+public class FeathergaleKnight extends Fighter{
 	/*
 	 * HUZZAH!
 	 */
 	
-	public FeathergaleKnight(String name, int maxHealth, int health, int dmg){
-		super(name, maxHealth, health, dmg);
+	public FeathergaleKnight(String name, int maxHealth, int dmg){
+		super(name, maxHealth, dmg);
 	}
 	
 	public void moralBoost(){
