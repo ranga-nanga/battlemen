@@ -1,4 +1,5 @@
 package battlemen;
+import battlemen.Dice;
 
 public class Fighter {
 	/* Default values for maxhealth, health and damage
@@ -64,8 +65,10 @@ public class Fighter {
 			this.poisonCounter = newPoisonCounter;
 		}
 		
+		
+		
 		public void attacks(Fighter fighter){
-			int roll = Dice.rollD20(1);
+			int roll = Dice.rollD20();
 			if (roll > fighter.getFighterDefense()){
 			    System.out.println(this.fighterName + "'s attack hit!");
 			    int newHealth = fighter.getFighterHealth() - this.fighterDamage;	
