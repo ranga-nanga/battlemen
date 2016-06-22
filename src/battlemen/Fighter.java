@@ -68,12 +68,17 @@ public class Fighter {
 		
 		
 		public void attacks(Fighter fighter){
-			int roll = Dice.rollD20();
+			int roll = Dice.rollD20(1);
 			if (roll > fighter.getFighterDefense()){
 			    System.out.println(this.fighterName + "'s attack hit!");
-			    int newHealth = fighter.getFighterHealth() - this.fighterDamage;	
+			    int damage = this.fighterDamage;
+			    if(roll == 20){
+					System.out.println("Critical Hit!");
+					damage = (this.fighterDamage*2);
+				}
+			    int newHealth = fighter.getFighterHealth() - damage;	
 				fighter.setFighterHealth(newHealth);
-				System.out.println(fighter.getFighterName() + " took " + this.fighterDamage + " damage!");
+				System.out.println(fighter.getFighterName() + " took " + damage + " damage!");
 				System.out.println(fighter.getFighterName() + " has " + fighter.getFighterHealth() + " health left!");
 			}else{
 			   System.out.println(this.fighterName + "'s attack missed!");
