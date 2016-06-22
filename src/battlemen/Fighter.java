@@ -93,7 +93,11 @@ public class Fighter {
 				healthDifference = 3;
 			}
 			fighterHealth += healthDifference;
-			System.out.println(this.fighterName + " heals for " + healthDifference + " points!");
+			if(healthDifference == 1){
+				System.out.println(this.fighterName + " heals for 1 point!");
+			} else {
+				System.out.println(this.fighterName + " heals for " + healthDifference + " points!");
+			}
 			System.out.println(this.fighterName + " now has " + this.fighterHealth + " health!");
 		}
 		

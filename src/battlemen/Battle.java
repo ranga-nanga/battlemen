@@ -56,6 +56,8 @@ public class Battle {
 				}
 				boolean actionFound = false;
 				while (actionFound == false) {
+					System.out.println(players[i].getFighterName() + "'s health: " + players[i].getFighterHealth());
+					System.out.println(Angorus.getFighterName() + "'s health: " + Angorus.getFighterHealth());
 					System.out.print("What will you do?: ");
 					in = input.nextLine().trim();
 					
