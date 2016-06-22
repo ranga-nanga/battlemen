@@ -67,14 +67,18 @@ public class Fighter {
 		public void attacks(Fighter fighter){
 			int roll = Dice.rollDice(20, 1);
 			if (roll > fighter.getFighterDefense()){
-			    System.out.println(this.fighterName + "'s attack hit!");
+			    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
 			    int damage = Dice.rollDice(this.fighterDmgDice, 1);
 			    if(roll == 20){
 					System.out.println("Critical Hit!");
 					damage = damage*2;
 				}
 			    int newHealth = fighter.getFighterHealth() - damage;	
-				fighter.setFighterHealth(newHealth);
+			    if(newHealth < 0){
+			    	fighter.setFighterHealth(0);
+			    } else {
+			    	fighter.setFighterHealth(newHealth);
+			    }
 				System.out.println(fighter.getFighterName() + " took " + damage + " damage!");
 				System.out.println(fighter.getFighterName() + " has " + fighter.getFighterHealth() + " health left!");
 			}else{
@@ -86,11 +90,10 @@ public class Fighter {
 		public  void usePotion(){
 			int healthDifference = maxFighterHealth - fighterHealth;
 			if (healthDifference > 3){
-				fighterHealth += 3;
-			}else{
-				fighterHealth += maxFighterHealth - fighterHealth;
+				healthDifference = 3;
 			}
-			System.out.println(this.fighterName + " heals for 3 points!");
+			fighterHealth += healthDifference;
+			System.out.println(this.fighterName + " heals for " + healthDifference + " points!");
 			System.out.println(this.fighterName + " now has " + this.fighterHealth + " health!");
 		}
 		

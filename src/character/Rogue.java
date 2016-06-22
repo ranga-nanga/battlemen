@@ -17,7 +17,7 @@ public class Rogue extends Fighter{
 		int roll = Dice.rollDice(20, 1);
 		if (roll > enemy.getFighterDefense()){
 		    System.out.println(this.fighterName + "'s attack hit!");
-		    int damage = Dice.rollDice(this.fighterDmgDice, 1);
+		    int damage = Dice.rollDice(this.fighterDmgDice, 1)*2;
 		    //double damage for sneakAttack
 		    int newHealth = enemy.getFighterHealth() - damage*2;	
 		    enemy.setFighterHealth(newHealth);

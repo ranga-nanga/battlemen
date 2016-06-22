@@ -89,6 +89,10 @@ public class Battle {
 				}
 				
 			}
+			
+			if(Angorus.getFighterHealth() <= 0){
+				break;
+			}
 			//makes it to where monster attacks a random person on the field
 			System.out.println('\n' + "The monster is attacking!");
 			Angorus.attacks(players[new Random().nextInt(players.length)]);
