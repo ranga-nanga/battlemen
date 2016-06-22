@@ -12,7 +12,7 @@ public class Fighter {
 		public boolean poison = false;
 		public int poisonCounter = 0;
 		public int fighterDefense = 0;
-			
+		public int fighterDmgDice = 0;
 		/*
 		 * Constructor is called when initializing a new hero
 		 * Pass in values for health and damage when creating to override default values
@@ -68,7 +68,7 @@ public class Fighter {
 		
 		
 		public void attacks(Fighter fighter){
-			int roll = Dice.rollD20(1);
+			int roll = Dice.rollDice();
 			if (roll > fighter.getFighterDefense()){
 			    System.out.println(this.fighterName + "'s attack hit!");
 			    int damage = this.fighterDamage;
