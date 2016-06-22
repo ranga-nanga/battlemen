@@ -10,8 +10,8 @@ public class Rogue extends Fighter{
 	 * This constructor calls the Hero constructor
 	 * because this class extends Hero 
 	 */
-	public Rogue(String name, int maxHealth, int dmg) {
-		super(name, maxHealth, dmg);
+	public Rogue(String name, int maxHealth, int dmg, int defense) {
+		super(name, maxHealth, dmg, defense);
 		rogueDamage = dmg * 2;
 	}
 

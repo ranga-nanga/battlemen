@@ -10,16 +10,26 @@ public class Fighter {
 		public String fighterName = "";
 		public boolean poison = false;
 		public int poisonCounter = 0;
+		public int fighterDefense = 0;
 			
 		/*
 		 * Constructor is called when initializing a new hero
 		 * Pass in values for health and damage when creating to override default values
 		 */
-		public Fighter(String name, int maxHealth, int dmg){
+		public Fighter(String name, int maxHealth, int dmg, int defense){
 			this.fighterName = name;
 			this.maxFighterHealth = maxHealth;
 			this.fighterHealth = maxHealth;
 			this.fighterDamage = dmg;
+			this.fighterDefense = defense;
+		}
+		
+		public int getFighterDefense(){
+			return this.fighterDefense;
+		}
+		
+		public void setFighterDefense(int newFighterDefense){
+			this.fighterDefense = newFighterDefense;
 		}
 
 		public String getFighterName(){
@@ -55,10 +65,16 @@ public class Fighter {
 		}
 		
 		public void attacks(Fighter fighter){
-			int newHealth = fighter.getFighterHealth() - this.fighterDamage;	
-			fighter.setFighterHealth(newHealth);
-			System.out.println(fighter.getFighterName() + " took " + this.fighterDamage + " damage!");
-			System.out.println(fighter.getFighterName() + " has " + fighter.getFighterHealth() + " health left!");
+			int roll = Dice.rollD20(1);
+			if (roll > fighter.getFighterDefense()){
+			    System.out.println(this.fighterName + "'s attack hit!");
+			    int newHealth = fighter.getFighterHealth() - this.fighterDamage;	
+				fighter.setFighterHealth(newHealth);
+				System.out.println(fighter.getFighterName() + " took " + this.fighterDamage + " damage!");
+				System.out.println(fighter.getFighterName() + " has " + fighter.getFighterHealth() + " health left!");
+			}else{
+			   System.out.println(this.fighterName + "'s attack missed!");
+			}
 			this.evaluate();
 		}
 		

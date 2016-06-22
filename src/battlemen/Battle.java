@@ -25,6 +25,8 @@ public class Battle {
 			System.out.print("Set " + name + "'s health: ");
 			int health = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Set " + name + "'s damage: ");
+			int defense = Integer.parseInt(input.nextLine().trim());
+			System.out.print("Set " + name + "'s defense: ");
 			int damage = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Pick " + name
 					+ "'s class(FeathergaleKnight, Rogue, Barbarian): ");
@@ -32,17 +34,17 @@ public class Battle {
 		
 			switch (playerClass) {
 				case "FGK":
-					players[i] = new FeathergaleKnight(name, health, damage);
+					players[i] = new FeathergaleKnight(name, health, damage, defense);
 					break;
 				case "Rogue":
-					players[i] = new Rogue(name, health, damage);
+					players[i] = new Rogue(name, health, damage, defense);
 					break;
 				case "Barbarian":
-					players[i] = new Barbarian(name, health, damage);
+					players[i] = new Barbarian(name, health, damage, defense);
 					break;
 			}
 		}
-		Fighter Angorus = new Fighter("Angorus", 20, 1);
+		Fighter Angorus = new Fighter("Angorus", 20, 1, 10);
 		while (Angorus.getFighterHealth() > 0) {
 			for (int i = 0; i < players.length; i++) {
 				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " attack");
