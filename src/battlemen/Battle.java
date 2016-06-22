@@ -27,7 +27,7 @@ public class Battle {
 			System.out.print("Set " + name + "'s damage: ");
 			int damage = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Pick " + name
-					+ "'s class(FeathergaleKnight, Rogue): ");
+					+ "'s class(FeathergaleKnight, Rogue, Barbarian): ");
 			String playerClass = input.nextLine().trim();
 		
 			switch (playerClass) {
