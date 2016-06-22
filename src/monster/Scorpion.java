@@ -4,8 +4,8 @@ import battlemen.Fighter;
 
 public class Scorpion extends Fighter{
 
-	public Scorpion(String name, int maxHealth, int dmg, int defense) {
-		super(name, maxHealth, dmg, defense);
+	public Scorpion(String name, int maxHealth, int defense, int dmgDice) {
+		super(name, maxHealth, defense, dmgDice);
 	}
 	
 	public void poisonStab(Fighter enemy){
