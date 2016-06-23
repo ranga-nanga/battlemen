@@ -11,14 +11,26 @@ import character.Rogue;
 import battlemen.Fighter;
 
 public class Battle {
+	static Fighter[] players;
+	Fighter Angorus = new Fighter("Angorus", 20, 10, 1);
+	Scanner input = new Scanner(System.in);
+	String in = "";
+	
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
+		Battle b = new Battle();
+		b.setupPlayers();
+		b.turnSystem();
+		b.bodyCount();
+		b.levelUp();
+	}	
+	
+	public void setupPlayers(){
 		// Initialize the Characteres and any monsters they will face
 		System.out.print("How many players?: ");
-		String in = input.nextLine().trim();
+		in = input.nextLine().trim();
 
 		// Setup all Characteres
-		Fighter[] players = new Fighter[Integer.parseInt(in)];
+		players = new Fighter[Integer.parseInt(in)];
 		for (int i = 0; i < Integer.parseInt(in); i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
@@ -42,7 +54,9 @@ public class Battle {
 					break;
 			}
 		}
-		Fighter Angorus = new Fighter("Angorus", 20, 10, 1);
+	}
+	
+	public void turnSystem(){
 		while (Angorus.getFighterHealth() > 0) {
 			for (int i = 0; i < players.length; i++) {
 				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " attack");
@@ -89,7 +103,6 @@ public class Battle {
 						}
 					}
 				}
-				
 			}
 			
 			if(Angorus.getFighterHealth() <= 0){
@@ -99,7 +112,9 @@ public class Battle {
 			System.out.println('\n' + "The monster is attacking!");
 			Angorus.attacks(players[new Random().nextInt(players.length)]);
 		}
-		
+	}
+	
+	public void bodyCount(){
 		//Body count to show how many died fighting the monster(s)
 		System.out.println("RIP:");
 		for(Fighter player: players){
@@ -107,13 +122,14 @@ public class Battle {
 				System.out.println(player.getFighterName() + " died in combat.");
 			}
 		}
-		
+	}
+
+	public void levelUp(){
 		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
-		for(Fighter player : players){player.newMaxFighterHealth();
+		for(Fighter player : players){
+			player.newMaxFighterHealth();
 		}	
 		System.out.println("But what horrors await you in the days to come...?");
-		
 	}
-	
 }
 
