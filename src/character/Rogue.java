@@ -13,16 +13,19 @@ public class Rogue extends Fighter{
 		super(name, maxHealth, defense, 6);
 	}
 
-	public void sneakAttack(Fighter enemy){
+	public void sneakAttack(Fighter fighter){
 		int roll = Dice.rollDice(20, 1);
-		if (roll > enemy.getFighterDefense()){
-		    System.out.println(this.fighterName + "'s attack hit!");
+		if (roll > fighter.getFighterDefense()){
+		    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
 		    int damage = Dice.rollDice(this.fighterDmgDice, 1)*2;
-		    //double damage for sneakAttack
-		    int newHealth = enemy.getFighterHealth() - damage*2;	
-		    enemy.setFighterHealth(newHealth);
-			System.out.println(enemy.getFighterName() + " took " + damage + " damage!");
-			System.out.println(enemy.getFighterName() + " has " + enemy.getFighterHealth() + " health left!");
+		    int newHealth = fighter.getFighterHealth() - damage;	
+		    if(newHealth < 0){
+		    	fighter.setFighterHealth(0);
+		    } else {
+		    	fighter.setFighterHealth(newHealth);
+		    }
+			System.out.println(fighter.getFighterName() + " took " + damage + " damage!");
+			System.out.println(fighter.getFighterName() + " has " + fighter.getFighterHealth() + " health left!");
 		}else{
 		   System.out.println(this.fighterName + "'s attack missed!");
 		}
