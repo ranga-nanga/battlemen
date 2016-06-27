@@ -4,8 +4,13 @@ import battlemen.Fighter;
 
 public class Barbarian extends Fighter{
 
-	public Barbarian(String name, int defense){
-		super(name, 15, defense, 12);
+	static int health = 15;
+	static int dmgDie = 6;
+	static int healthDie = 10;
+	static int strength = 10;
+	
+	public Barbarian(String name){
+		super(name, health, strength, dmgDie, healthDie);
 	}
 	
 }

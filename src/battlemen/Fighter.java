@@ -12,16 +12,20 @@ public class Fighter {
 		public int poisonCounter = 0;
 		public int fighterDefense = 0;
 		public int fighterDmgDice = 0;
+		public int fighterStrength = 0;
+		public int healthDie = 0;
 		/*
 		 * Constructor is called when initializing a new hero
 		 * Pass in values for health and damage when creating to override default values
 		 */
-		public Fighter(String name, int maxHealth, int defense, int dmgDice){
+		public Fighter(String name, int health, int strength, int dmgDice, int healthDie){
 			this.fighterName = name;
-			this.maxFighterHealth = maxHealth + Dice.rollDice(20, 1);
-			this.fighterHealth = this.maxFighterHealth;
-			this.fighterDefense = defense;
+			this.maxFighterHealth = health;
+			this.fighterHealth = health;
+			this.fighterStrength = strength;
+			this.fighterDefense = (strength+health)/2;
 			this.fighterDmgDice = dmgDice;
+			this.healthDie = healthDie;
 		}
 		
 		public int getFighterDefense(){
@@ -68,12 +72,17 @@ public class Fighter {
 			int roll = Dice.rollDice(20, 1);
 			if (roll > fighter.getFighterDefense()){
 			    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
-			    int damage = Dice.rollDice(this.fighterDmgDice, 1);
+			    //calculate damage
+			    int damage = Dice.rollDice(this.fighterDmgDice, 1) + this.fighterStrength;
 			    if(roll == 20){
 					System.out.println("Critical Hit!");
 					damage = damage*2;
 				}
+			    
+			    //deal damage
 			    int newHealth = fighter.getFighterHealth() - damage;	
+			    
+			    //prevent negative health
 			    if(newHealth < 0){
 			    	fighter.setFighterHealth(0);
 			    } else {
@@ -102,7 +111,7 @@ public class Fighter {
 		}
 		
 		public void newMaxFighterHealth(){
-			this.maxFighterHealth += 5;
+			this.maxFighterHealth += Dice.rollDice(healthDie, 1);
 			System.out.println("You leveled up! Your Max Health is now " + this.maxFighterHealth + " !");
 			System.out.println("You currently have " + this.fighterHealth + " HP out of " + this.maxFighterHealth);
 		}

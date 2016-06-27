@@ -12,8 +12,8 @@ import battlemen.Fighter;
 
 public class Battle {
 	static Fighter[] players;
-	//create dynamic monster generation
-	Fighter Angorus = new Fighter("Angorus", 20, 10, 1);
+	//TODO: create dynamic monster generation
+	Fighter Angorus = new Fighter("Angorus", 20, 10, 1, 4);
 	Scanner input = new Scanner(System.in);
 	String in = "";
 	
@@ -35,21 +35,19 @@ public class Battle {
 		for (int i = 0; i < Integer.parseInt(in); i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
-			System.out.print("Set " + name + "'s defense: ");
-			int defense = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Pick " + name
 					+ "'s class(FGK, Rogue, Barbarian): ");
 			String playerClass = input.nextLine().trim();
 		
 			switch (playerClass) {
 				case "FGK":
-					players[i] = new FeathergaleKnight(name, defense);
+					players[i] = new FeathergaleKnight(name);
 					break;
 				case "Rogue":
-					players[i] = new Rogue(name, defense);
+					players[i] = new Rogue(name);
 					break;
 				case "Barbarian":
-					players[i] = new Barbarian(name, defense);
+					players[i] = new Barbarian(name);
 					break;
 			}
 		}
@@ -124,6 +122,7 @@ public class Battle {
 	}
 
 	public void levelUp(){
+		//TODO: add exp point system?
 		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
 		for(Fighter player : players){
 			player.newMaxFighterHealth();

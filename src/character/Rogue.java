@@ -5,19 +5,20 @@ import battlemen.Fighter;
 
 public class Rogue extends Fighter{
 	
-	/*
-	 * This constructor calls the Hero constructor
-	 * because this class extends Hero 
-	 */
-	public Rogue(String name, int defense) {
-		super(name, 5, defense, 6);
+	static int health = 5;
+	static int dmgDie = 8;
+	static int healthDie = 6;
+	static int strength = 6;
+	
+	public Rogue(String name) {
+		super(name, health, strength, dmgDie, healthDie);
 	}
 
 	public void sneakAttack(Fighter fighter){
 		int roll = Dice.rollDice(20, 1);
 		if (roll > fighter.getFighterDefense()){
 		    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
-		    int damage = Dice.rollDice(this.fighterDmgDice, 1)*2;
+		    int damage = (Dice.rollDice(this.fighterDmgDice, 1)+this.fighterStrength)*2;
 		    int newHealth = fighter.getFighterHealth() - damage;	
 		    if(newHealth < 0){
 		    	fighter.setFighterHealth(0);
