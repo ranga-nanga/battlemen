@@ -20,6 +20,7 @@ public class Battle {
 	public static void main(String[] args) {
 		Battle b = new Battle();
 		b.setupPlayers();
+		//do-while looping the next three methods if input is yes or y, print theres something in the darkness, investigate?: 
 		b.turnSystem();
 		b.bodyCount();
 		b.levelUp();
@@ -55,6 +56,7 @@ public class Battle {
 	
 	public void turnSystem(){
 		while (Angorus.getFighterHealth() > 0) {
+			//TODO: add break if no one is alive, skip players that are dead
 			for (int i = 0; i < players.length; i++) {
 				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " attack");
 				System.out.println("2. " + players[i].getFighterName()+ " usePotion");
@@ -116,6 +118,7 @@ public class Battle {
 		System.out.println("RIP:");
 		for(Fighter player: players){
 			if(player.getFighterHealth() == 0){
+				//TODO: remove players that died from the array
 				System.out.println(player.getFighterName() + " died in combat.");
 			}
 		}
@@ -125,6 +128,7 @@ public class Battle {
 		//TODO: add exp point system?
 		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
 		for(Fighter player : players){
+			//TODO: set health = maxHealth healing leveled up players
 			player.newMaxFighterHealth();
 		}	
 		System.out.println("But what horrors await you in the days to come...?");
