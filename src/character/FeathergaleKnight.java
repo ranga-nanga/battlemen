@@ -7,8 +7,8 @@ public class FeathergaleKnight extends Fighter{
 	 * HUZZAH!
 	 */
 	
-	public FeathergaleKnight(String name, int maxHealth, int defense){
-		super(name, maxHealth, defense, 10);
+	public FeathergaleKnight(String name, int defense){
+		super(name, 10, defense, 10);
 	}
 	
 	public void moralBoost(){

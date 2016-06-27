@@ -18,8 +18,8 @@ public class Fighter {
 		 */
 		public Fighter(String name, int maxHealth, int defense, int dmgDice){
 			this.fighterName = name;
-			this.maxFighterHealth = maxHealth;
-			this.fighterHealth = maxHealth;
+			this.maxFighterHealth = maxHealth + Dice.rollDice(20, 1);
+			this.fighterHealth = this.maxFighterHealth;
 			this.fighterDefense = defense;
 			this.fighterDmgDice = dmgDice;
 		}

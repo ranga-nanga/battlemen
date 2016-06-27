@@ -12,6 +12,7 @@ import battlemen.Fighter;
 
 public class Battle {
 	static Fighter[] players;
+	//create dynamic monster generation
 	Fighter Angorus = new Fighter("Angorus", 20, 10, 1);
 	Scanner input = new Scanner(System.in);
 	String in = "";
@@ -34,23 +35,21 @@ public class Battle {
 		for (int i = 0; i < Integer.parseInt(in); i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
-			System.out.print("Set " + name + "'s health: ");
-			int health = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Set " + name + "'s defense: ");
 			int defense = Integer.parseInt(input.nextLine().trim());
 			System.out.print("Pick " + name
-					+ "'s class(FeathergaleKnight, Rogue, Barbarian): ");
+					+ "'s class(FGK, Rogue, Barbarian): ");
 			String playerClass = input.nextLine().trim();
 		
 			switch (playerClass) {
 				case "FGK":
-					players[i] = new FeathergaleKnight(name, health, defense);
+					players[i] = new FeathergaleKnight(name, defense);
 					break;
 				case "Rogue":
-					players[i] = new Rogue(name, health, defense);
+					players[i] = new Rogue(name, defense);
 					break;
 				case "Barbarian":
-					players[i] = new Barbarian(name, health, defense);
+					players[i] = new Barbarian(name, defense);
 					break;
 			}
 		}
