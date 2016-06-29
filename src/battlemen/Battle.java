@@ -16,8 +16,7 @@ import battlemen.Fighter;
 public class Battle {
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
-	List<Item> enemyEquipment = new ArrayList<Item>();
-	Fighter Angorus = new Fighter("Angorus", 20, 1, 1, 4, enemyEquipment);
+	Enemy Angorus = new Enemy("Angorus", 20, 1, 1);
 	Scanner input = new Scanner(System.in);
 	String in = "";
 	
