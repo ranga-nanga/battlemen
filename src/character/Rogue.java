@@ -1,5 +1,9 @@
 package character;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import equipment.Item;
 import battlemen.Dice;
 import battlemen.Fighter;
 
@@ -9,9 +13,15 @@ public class Rogue extends Fighter{
 	static int dmgDie = 8;
 	static int healthDie = 6;
 	static int strength = 6;
+	static List<Item> equipment = new ArrayList<Item>();
+	
+	public static void initEquip(){
+		equipment.add(new Item("sword", "short"));
+		equipment.add(new Item("potion", "3"));
+	}
 	
 	public Rogue(String name) {
-		super(name, health, strength, dmgDie, healthDie);
+		super(name, health, strength, dmgDie, healthDie, equipment);
 	}
 
 	public void sneakAttack(Fighter fighter){

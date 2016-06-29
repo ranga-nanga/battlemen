@@ -1,4 +1,9 @@
 package battlemen;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import equipment.Item;
 import battlemen.Dice;
 
 public class Fighter {
@@ -14,11 +19,9 @@ public class Fighter {
 		public int fighterDmgDice = 0;
 		public int fighterStrength = 0;
 		public int healthDie = 0;
-		/*
-		 * Constructor is called when initializing a new hero
-		 * Pass in values for health and damage when creating to override default values
-		 */
-		public Fighter(String name, int health, int strength, int dmgDice, int healthDie){
+		public List<Item> equipment = new ArrayList<Item>();
+		
+		public Fighter(String name, int health, int strength, int dmgDice, int healthDie, List<Item> list){
 			this.fighterName = name;
 			this.maxFighterHealth = health;
 			this.fighterHealth = health;
@@ -26,6 +29,7 @@ public class Fighter {
 			this.fighterDefense = (strength+health)/2;
 			this.fighterDmgDice = dmgDice;
 			this.healthDie = healthDie;
+			this.equipment.addAll(list);
 		}
 		
 		public int getFighterDefense(){
