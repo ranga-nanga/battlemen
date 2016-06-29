@@ -2,18 +2,22 @@ package battlemen;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import character.Barbarian;
 import character.FeathergaleKnight;
 import character.Rogue;
+import equipment.Item;
 import battlemen.Fighter;
 
 public class Battle {
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
-	Fighter Angorus = new Fighter("Angorus", 20, 10, 1, 4, null);
+	List<Item> enemyEquipment = new ArrayList<Item>();
+	Fighter Angorus = new Fighter("Angorus", 20, 1, 1, 4, enemyEquipment);
 	Scanner input = new Scanner(System.in);
 	String in = "";
 	
@@ -58,10 +62,11 @@ public class Battle {
 		while (Angorus.getFighterHealth() > 0) {
 			//TODO: add break if no one is alive, skip players that are dead
 			for (int i = 0; i < players.length; i++) {
-				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " attack");
-				System.out.println("2. " + players[i].getFighterName()+ " usePotion");
+				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
+				System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
+				System.out.println("3. " + players[i].getFighterName()+ " use [item]");
 				Method[] actions = players[i].getClass().getDeclaredMethods();
-				int j = 1;
+				int j = 4;
 				for (Method method : actions) {
 					System.out.println(j + ". " + players[i].getFighterName() + " " + method.getName());
 					j++;
@@ -74,11 +79,13 @@ public class Battle {
 					System.out.print("What will you do?: ");
 					in = input.nextLine().trim();
 					
-					if (in.contains("attack")){
+					if (in.equals("a")){
 						players[i].attacks(Angorus);
 						actionFound = true;
-					} else if(in.contains("usePotion")){
-						players[i].usePotion();
+					} else if(in.equals("i")){
+						players[i].inventory();
+					} else if(in.contains("use")){
+						players[i].useItem(in.substring(4));
 						actionFound = true;
 					} else {
 						for (Method action : actions) {
@@ -115,7 +122,7 @@ public class Battle {
 	
 	public void bodyCount(){
 		//Body count to show how many died fighting the monster(s)
-		System.out.println("RIP:");
+		System.out.println('\n' + "RIP:");
 		for(Fighter player: players){
 			if(player.getFighterHealth() == 0){
 				//TODO: remove players that died from the array

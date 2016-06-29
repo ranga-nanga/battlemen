@@ -3,9 +3,9 @@ package equipment;
 public class Item {
 	
 	public String group = "";
-	public String type = "";
+	public Object type;
 
-	public Item(String group, String type){
+	public Item(String group, Object type){
 		this.group = group;
 		this.type = type;
 	}
@@ -14,7 +14,11 @@ public class Item {
 		return this.group;
 	}
 	
-	public String getType(){
+	public Object getType(){
 		return this.type;
+	}
+
+	public void setType(Object newType){
+		this.type = newType;
 	}
 }

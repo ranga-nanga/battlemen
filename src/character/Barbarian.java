@@ -5,6 +5,7 @@ import java.util.List;
 
 import equipment.Item;
 import equipment.Sword;
+import equipment.Utility;
 import battlemen.Fighter;
 
 public class Barbarian extends Fighter{
@@ -22,7 +23,7 @@ public class Barbarian extends Fighter{
 	
 	public static void initEquip(){
 		equipment.add(new Sword("long"));
-		equipment.add(new Item("potion", "3"));
+		equipment.add(new Utility("potion", 3));
 	}
 	
 }

@@ -1,21 +1,21 @@
 package equipment;
 
-public class Sword extends Weapon{
+public class Club extends Weapon{
 	
-	public Sword(String type){
-		super("sword", type);
+	public Club(String type){
+		super("club", type);
 		init();
 	}
 	
 	public void init(){
 		switch(String.valueOf(this.type)){
-			case "long":
-				this.dmgDie = 8;
-				break;
-			case "short":
+			case "blunt":
 				this.dmgDie = 6;
 				break;
-			case "broad":
+			case "mace":
+				this.dmgDie = 8;
+				break;
+			case "axe":
 				this.dmgDie = 10;
 				break;
 		}

@@ -32,6 +32,10 @@ public class Fighter {
 			this.equipment.addAll(list);
 		}
 		
+		public void setEquipment(List<Item> items){
+			this.equipment.addAll(items);
+		}
+		
 		public int getFighterDefense(){
 			return this.fighterDefense;
 		}
@@ -74,6 +78,8 @@ public class Fighter {
 		
 		public void attacks(Fighter fighter){
 			int roll = Dice.rollDice(20, 1);
+			System.out.println("Attack Roll: " + roll);
+			System.out.println(fighter.getFighterName() + "'s defense: " + fighter.getFighterDefense());
 			if (roll > fighter.getFighterDefense()){
 			    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
 			    //calculate damage
@@ -100,6 +106,20 @@ public class Fighter {
 			this.evaluate();
 		}
 		
+		public void inventory(){
+			for(Item i : equipment){
+				System.out.println(i.getType() + " " + i.getGroup());
+			}
+		}
+		
+		public void useItem(String item){
+			switch(item){
+				case "potion":
+					usePotion();
+					break;
+			}
+		}
+		
 		public  void usePotion(){
 			int healthDifference = maxFighterHealth - fighterHealth;
 			if (healthDifference > 3){
@@ -112,6 +132,12 @@ public class Fighter {
 				System.out.println(this.fighterName + " heals for " + healthDifference + " points!");
 			}
 			System.out.println(this.fighterName + " now has " + this.fighterHealth + " health!");
+			for(Item item : equipment){
+				if(item.getGroup().equalsIgnoreCase("potion")){
+					int count = Integer.valueOf((String) item.getType());
+					item.setType(count-1);
+				}
+			}
 		}
 		
 		public void newMaxFighterHealth(){

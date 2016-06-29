@@ -5,6 +5,7 @@ import java.util.List;
 
 import equipment.Item;
 import equipment.Sword;
+import equipment.Utility;
 import battlemen.Dice;
 import battlemen.Fighter;
 
@@ -18,12 +19,13 @@ public class Rogue extends Fighter{
 	
 	public Rogue(String name) {
 		super(name, health, strength, dmgDie, healthDie, equipment);
-		initEquip();
+		this.initEquip();
 	}
 	
-	public static void initEquip(){
+	private void initEquip(){
 		equipment.add(new Sword("short"));
-		equipment.add(new Item("potion", "3"));
+		equipment.add(new Utility("potion", 3));
+		this.setEquipment(equipment);
 	}
 
 	public void sneakAttack(Fighter fighter){
