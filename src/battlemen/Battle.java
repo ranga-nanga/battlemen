@@ -17,7 +17,7 @@ public class Battle {
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
 	Enemy Angorus = new Enemy("Angorus", 20, 1, 1);
-	Scanner input = new Scanner(System.in);
+	static Scanner input = new Scanner(System.in);
 	static String in = "";
 	
 	public static void main(String[] args) {
@@ -25,12 +25,13 @@ public class Battle {
 		b.setupPlayers();
 		//do-while looping the next three methods if input is yes or y, print there's something in the darkness, investigate?: 
 		while(true){
-		System.out.println("Something lurks within the Darkness. Venture forth and investigate?");
-		if(in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")){
-		b.turnSystem();
-		b.bodyCount();
-		b.levelUp();
-		}
+			System.out.println("Something lurks within the Darkness. Venture forth and investigate?");
+			in = input.nextLine();
+			if(in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")){
+				b.turnSystem();
+				b.bodyCount();
+				b.levelUp();
+			}
 		}
 	}
 	
