@@ -13,7 +13,7 @@ import battlemen.Fighter;
 public class Battle {
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
-	Fighter Angorus = new Fighter("Angorus", 20, 10, 1, 4);
+	Fighter Angorus = new Fighter("Angorus", 20, 10, 1, 4, null);
 	Scanner input = new Scanner(System.in);
 	String in = "";
 	
