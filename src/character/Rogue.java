@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import equipment.Item;
+import equipment.Sword;
 import battlemen.Dice;
 import battlemen.Fighter;
 
@@ -15,13 +16,14 @@ public class Rogue extends Fighter{
 	static int strength = 6;
 	static List<Item> equipment = new ArrayList<Item>();
 	
-	public static void initEquip(){
-		equipment.add(new Item("sword", "short"));
-		equipment.add(new Item("potion", "3"));
-	}
-	
 	public Rogue(String name) {
 		super(name, health, strength, dmgDie, healthDie, equipment);
+		initEquip();
+	}
+	
+	public static void initEquip(){
+		equipment.add(new Sword("short"));
+		equipment.add(new Item("potion", "3"));
 	}
 
 	public void sneakAttack(Fighter fighter){
