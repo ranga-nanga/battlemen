@@ -3,8 +3,8 @@ package character;
 import java.util.ArrayList;
 import java.util.List;
 
+import equipment.Club;
 import equipment.Item;
-import equipment.Sword;
 import equipment.Utility;
 import battlemen.Fighter;
 
@@ -22,7 +22,7 @@ public class Barbarian extends Fighter{
 	}
 	
 	public static void initEquip(){
-		equipment.add(new Sword("long"));
+		equipment.add(new Club("mace"));
 		equipment.add(new Utility("potion", 3));
 	}
 	

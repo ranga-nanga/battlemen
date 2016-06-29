@@ -15,9 +15,6 @@ public class Club extends Weapon{
 			case "mace":
 				this.dmgDie = 8;
 				break;
-			case "axe":
-				this.dmgDie = 10;
-				break;
 		}
 	}
 }

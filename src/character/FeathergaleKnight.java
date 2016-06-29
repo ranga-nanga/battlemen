@@ -3,8 +3,8 @@ package character;
 import java.util.ArrayList;
 import java.util.List;
 
+import equipment.Blade;
 import equipment.Item;
-import equipment.Sword;
 import equipment.Utility;
 import battlemen.Fighter;
 
@@ -25,7 +25,7 @@ public class FeathergaleKnight extends Fighter{
 	}
 	
 	public static void initEquip(){
-		equipment.add(new Sword("broad"));
+		equipment.add(new Blade("broadsword"));
 		equipment.add(new Utility("potion", 3));
 	}
 	

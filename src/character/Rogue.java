@@ -3,8 +3,8 @@ package character;
 import java.util.ArrayList;
 import java.util.List;
 
+import equipment.Blade;
 import equipment.Item;
-import equipment.Sword;
 import equipment.Utility;
 import battlemen.Dice;
 import battlemen.Fighter;
@@ -23,7 +23,7 @@ public class Rogue extends Fighter{
 	}
 	
 	private void initEquip(){
-		equipment.add(new Sword("short"));
+		equipment.add(new Blade("rapier"));
 		equipment.add(new Utility("potion", 3));
 		this.setEquipment(equipment);
 	}
