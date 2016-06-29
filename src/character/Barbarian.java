@@ -19,6 +19,7 @@ public class Barbarian extends Fighter{
 	public Barbarian(String name){
 		super(name, health, strength, dmgDie, healthDie, equipment);
 		initEquip();
+		this.setEquipment(equipment); 
 	}
 	
 	public static void initEquip(){

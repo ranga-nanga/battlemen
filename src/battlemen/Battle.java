@@ -18,16 +18,21 @@ public class Battle {
 	//TODO: create dynamic monster generation
 	Enemy Angorus = new Enemy("Angorus", 20, 1, 1);
 	Scanner input = new Scanner(System.in);
-	String in = "";
+	static String in = "";
 	
 	public static void main(String[] args) {
 		Battle b = new Battle();
 		b.setupPlayers();
-		//do-while looping the next three methods if input is yes or y, print theres something in the darkness, investigate?: 
+		//do-while looping the next three methods if input is yes or y, print there's something in the darkness, investigate?: 
+		while(true){
+		System.out.println("Something lurks within the Darkness. Venture forth and investigate?");
+		if(in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")){
 		b.turnSystem();
 		b.bodyCount();
 		b.levelUp();
-	}	
+		}
+		}
+	}
 	
 	public void setupPlayers(){
 		// Initialize the Characters and any monsters they will face
@@ -75,6 +80,10 @@ public class Battle {
 		while (Angorus.getFighterHealth() > 0) {
 			//TODO: add break if no one is alive, skip players that are dead
 			for (int i = 0; i < players.length; i++) {
+				
+				//insert code here to check if player is dead.
+				//if dead, check next player. if all dead, println(It would seem as though the Darkness has one. in absentia luci tenebrae vincunt)
+				
 				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
 				System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
 				System.out.println("3. " + players[i].getFighterName()+ " use [item]");

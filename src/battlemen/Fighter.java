@@ -80,10 +80,10 @@ public class Fighter {
 			int roll = Dice.rollDice(20, 1);
 			System.out.println("Attack Roll: " + roll);
 			System.out.println(fighter.getFighterName() + "'s defense: " + fighter.getFighterDefense());
-			if (roll > fighter.getFighterDefense()){
+			if (roll + this.fighterStrength > fighter.getFighterDefense()){
 			    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
 			    //calculate damage
-			    int damage = Dice.rollDice(this.fighterDmgDice, 1) + this.fighterStrength;
+			    int damage = Dice.rollDice(this.fighterDmgDice, 1); /*+ this.fighterStrength;*/
 			    if(roll == 20){
 					System.out.println("Critical Hit!");
 					damage = damage*2;
