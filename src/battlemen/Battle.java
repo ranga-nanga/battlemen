@@ -30,29 +30,43 @@ public class Battle {
 	}	
 	
 	public void setupPlayers(){
-		// Initialize the Characteres and any monsters they will face
+		// Initialize the Characters and any monsters they will face
 		System.out.print("How many players?: ");
 		in = input.nextLine().trim();
+		//if the input was empty, or if the input was not all digits, loop until it is
+		while(in.equals("") || !in.matches("[0-9]+")){
+			System.out.print("Please enter a number: ");
+			in = input.nextLine().trim();
+		} 
 
-		// Setup all Characteres
+		// Setup all Characters
 		players = new Fighter[Integer.parseInt(in)];
 		for (int i = 0; i < Integer.parseInt(in); i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
-			System.out.print("Pick " + name
-					+ "'s class(FGK, Rogue, Barbarian): ");
-			String playerClass = input.nextLine().trim();
-		
-			switch (playerClass) {
-				case "FGK":
-					players[i] = new FeathergaleKnight(name);
-					break;
-				case "Rogue":
-					players[i] = new Rogue(name);
-					break;
-				case "Barbarian":
-					players[i] = new Barbarian(name);
-					break;
+			boolean classDefined = false;
+			while(classDefined == false){
+				System.out.print("Pick " + name
+						+ "'s class(FGK, Rogue, Barbarian): ");
+				String playerClass = input.nextLine().trim();
+			
+				switch (playerClass) {
+					case "FGK":
+						players[i] = new FeathergaleKnight(name);
+						classDefined = true;
+						break;
+					case "Rogue":
+						players[i] = new Rogue(name);
+						classDefined = true;
+						break;
+					case "Barbarian":
+						players[i] = new Barbarian(name);
+						classDefined = true;
+						break;
+					default:
+						System.out.println("That is not a defined player class, pick another." + '\n');
+						break;
+				}
 			}
 		}
 	}
@@ -69,7 +83,6 @@ public class Battle {
 				for (Method method : actions) {
 					System.out.println(j + ". " + players[i].getFighterName() + " " + method.getName());
 					j++;
-				//moved below bracket to current position this was looping around the rest of the code
 				}
 				boolean actionFound = false;
 				while (actionFound == false) {
@@ -90,7 +103,6 @@ public class Battle {
 						for (Method action : actions) {
 							//Have to call Character methods directly
 							if (action.getName().contains(in)) {
-								//Fixed errors using catch statements
 								try {
 									action.invoke(players[i], Angorus);
 								} catch (IllegalAccessException e) {
