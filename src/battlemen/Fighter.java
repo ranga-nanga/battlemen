@@ -136,6 +136,13 @@ public class Fighter {
 				if(item.getGroup().equalsIgnoreCase("potion")){
 					int count = Integer.valueOf((String) item.getType());
 					item.setType(count-1);
+					//TODO: make sure game doesn't crash after using a potion when have none
+					//tried to add code to stop game from failing if used too many potions
+					if(count == 0){
+						System.out.println("It would seem as though that you don't have one...");
+						}else{
+						
+						}
 				}
 			}
 		}

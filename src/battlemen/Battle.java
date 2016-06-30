@@ -80,10 +80,14 @@ public class Battle {
 	public void turnSystem(){
 		while (Angorus.getFighterHealth() > 0) {
 			//TODO: add break if no one is alive, skip players that are dead
+			//Added code to skip player if dead
 			for (int i = 0; i < players.length; i++) {
-				
-				//insert code here to check if player is dead.
-				//if dead, check next player. if all dead, println(It would seem as though the Darkness has one. in absentia luci tenebrae vincunt)
+					if(players[i].getFighterHealth() <= 0){
+					System.out.println(players[i].getFighterName()+" has given into the darkness. They cannot fight.");
+					i++;
+					}else{
+
+					}
 				
 				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
 				System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
@@ -138,8 +142,18 @@ public class Battle {
 			//makes it to where monster attacks a random person on the field
 			System.out.println('\n' + "The monster is attacking!");
 			Angorus.attacks(players[new Random().nextInt(players.length)]);
-		}
+			
+			}
 	}
+	
+	//TODO: check if player died after the attack. and to print out that they died so it doesn't print out
+	
+	//might have to delete from here
+	//public int target(){
+	//players[new Random().nextInt(players.length)] ;
+	//}
+	//to here
+	
 	
 	public void bodyCount(){
 		//Body count to show how many died fighting the monster(s)
@@ -154,6 +168,7 @@ public class Battle {
 
 	public void levelUp(){
 		//TODO: add exp point system?
+		//TODO: add money/gil/gold system for eventual shop?
 		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
 		for(Fighter player : players){
 			//TODO: set health = maxHealth healing leveled up players
