@@ -79,58 +79,54 @@ public class Battle {
 	
 	public void turnSystem(){
 		while (Angorus.getFighterHealth() > 0) {
-			//TODO: add break if no one is alive, skip players that are dead
 			//Added code to skip player if dead
 			for (int i = 0; i < players.length; i++) {
-					if(players[i].getFighterHealth() <= 0){
+				if(players[i].getFighterHealth() <= 0){
 					System.out.println(players[i].getFighterName()+" has given into the darkness. They cannot fight.");
-					i++;
-					}else{
-
+				}else{
+					System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
+					System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
+					System.out.println("3. " + players[i].getFighterName()+ " use [item]");
+					Method[] actions = players[i].getClass().getDeclaredMethods();
+					int j = 4;
+					for (Method method : actions) {
+						System.out.println(j + ". " + players[i].getFighterName() + " " + method.getName());
+						j++;
 					}
-				
-				System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
-				System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
-				System.out.println("3. " + players[i].getFighterName()+ " use [item]");
-				Method[] actions = players[i].getClass().getDeclaredMethods();
-				int j = 4;
-				for (Method method : actions) {
-					System.out.println(j + ". " + players[i].getFighterName() + " " + method.getName());
-					j++;
-				}
-				boolean actionFound = false;
-				while (actionFound == false) {
-					System.out.println(players[i].getFighterName() + "'s health: " + players[i].getFighterHealth());
-					System.out.println(Angorus.getFighterName() + "'s health: " + Angorus.getFighterHealth());
-					System.out.print("What will you do?: ");
-					in = input.nextLine().trim();
-					
-					if (in.equals("a")){
-						players[i].attacks(Angorus);
-						actionFound = true;
-					} else if(in.equals("i")){
-						players[i].inventory();
-					} else if(in.contains("use")){
-						players[i].useItem(in.substring(4));
-						actionFound = true;
-					} else {
-						for (Method action : actions) {
-							//Have to call Character methods directly
-							if (action.getName().contains(in)) {
-								try {
-									action.invoke(players[i], Angorus);
-								} catch (IllegalAccessException e) {
-									e.printStackTrace();
-								} catch (IllegalArgumentException e) {
-									e.printStackTrace();
-								} catch (InvocationTargetException e) {
-									e.printStackTrace();
+					boolean actionFound = false;
+					while (actionFound == false) {
+						System.out.println(players[i].getFighterName() + "'s health: " + players[i].getFighterHealth());
+						System.out.println(Angorus.getFighterName() + "'s health: " + Angorus.getFighterHealth());
+						System.out.print("What will you do?: ");
+						in = input.nextLine().trim();
+						
+						if (in.equals("a")){
+							players[i].attacks(Angorus);
+							actionFound = true;
+						} else if(in.equals("i")){
+							players[i].inventory();
+						} else if(in.contains("use")){
+							players[i].useItem(in.substring(4));
+							actionFound = true;
+						} else {
+							for (Method action : actions) {
+								//Have to call Character methods directly
+								if (action.getName().contains(in)) {
+									try {
+										action.invoke(players[i], Angorus);
+									} catch (IllegalAccessException e) {
+										e.printStackTrace();
+									} catch (IllegalArgumentException e) {
+										e.printStackTrace();
+									} catch (InvocationTargetException e) {
+										e.printStackTrace();
+									}
+									actionFound = true;
 								}
-								actionFound = true;
 							}
-						}
-						if(actionFound == false){
-							System.out.println(players[i].getFighterName() + " can't do that!");
+							if(actionFound == false){
+								System.out.println(players[i].getFighterName() + " can't do that!");
+							}
 						}
 					}
 				}
@@ -171,8 +167,8 @@ public class Battle {
 		//TODO: add money/gil/gold system for eventual shop?
 		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
 		for(Fighter player : players){
-			//TODO: set health = maxHealth healing leveled up players
 			player.newMaxFighterHealth();
+			player.fighterHealth = player.maxFighterHealth;
 		}	
 		System.out.println("But what horrors await you in the days to come...?");
 	}
