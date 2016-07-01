@@ -144,6 +144,9 @@ public class Battle {
 						if (in.equals("a")){
 							players[i].attacks(Angorus);
 							actionFound = true;
+							if(Angorus.getFighterHealth() < 0){
+								break;
+							}
 						} else if(in.equals("i")){
 							players[i].inventory();
 						} else if(in.contains("use")){
@@ -173,7 +176,7 @@ public class Battle {
 				}
 			}
 			
-			if(Angorus.getFighterHealth() <= 0){
+			if(Angorus.getFighterHealth() < 0){
 				break;
 			}
 			//makes it to where monster attacks a random person on the field
