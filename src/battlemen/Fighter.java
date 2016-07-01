@@ -24,8 +24,6 @@ public class Fighter {
 	public int fighterMDefense = 0;
 	public boolean poison = false;
 	public int poisonCounter = 0;
-	public boolean wet = false;
-	public int wetCounter = 0;
 	public int fighterAGI = 0, fighterMaxAGI = 255;
 	public int fighterSTR = 0, fighterMaxSTR = 255;
 	public int fighterPAttack = 0;
@@ -50,11 +48,11 @@ public class Fighter {
 	}
 
 	public int getFighterDefense() {
-		return this.fighterDefense;
+		return this.fighterPDefense;
 	}
 
 	public void setFighterDefense(int newFighterDefense) {
-		this.fighterDefense = newFighterDefense;
+		this.fighterPDefense = newFighterDefense;
 	}
 
 	public String getFighterName() {
@@ -94,7 +92,7 @@ public class Fighter {
 		System.out.println("Attack Roll: " + roll);
 		System.out.println(fighter.getFighterName() + "'s defense: "
 				+ fighter.getFighterDefense());
-		if (roll + this.fighterStrength > fighter.getFighterDefense()) {
+		if (roll + this.fighterSTR > fighter.getFighterDefense()) {
 			System.out.println(this.fighterName + "'s attack hit "
 					+ fighter.getFighterName() + "!");
 			// calculate damage
@@ -142,7 +140,7 @@ public class Fighter {
 	}
 
 	public void usePotion() {
-		int healthDifference = maxFighterHealth - fighterHealth;
+		int healthDifference = fighterMaxHealth - fighterHealth;
 		if (healthDifference > 3) {
 			healthDifference = 3;
 		}
@@ -174,11 +172,11 @@ public class Fighter {
 	}
 
 	public void newMaxFighterHealth() {
-		this.maxFighterHealth += Dice.rollDice(healthDie, 1);
+		this.fighterMaxHealth += Dice.rollDice(healthDie, 1);
 		System.out.println("You leveled up! Your Max Health is now "
-				+ this.maxFighterHealth + " !");
+				+ this.fighterMaxHealth + " !");
 		System.out.println("You currently have " + this.fighterHealth
-				+ " HP out of " + this.maxFighterHealth);
+				+ " HP out of " + this.fighterMaxHealth);
 	}
 
 	public void evaluate() {
