@@ -1,11 +1,22 @@
 package battlemen;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import character.Barbarian;
 import character.FeathergaleKnight;
@@ -14,15 +25,54 @@ import equipment.Item;
 import battlemen.Fighter;
 
 public class Battle {
+	//gui components
+	public static JFrame frame = new JFrame("RPG");
+	
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
 	Enemy Angorus = new Enemy("Angorus", 20, 1, 1);
 	static Scanner input = new Scanner(System.in);
 	static String in = "";
+	String playerCountNum = "";
+	
+	public Battle(){
+		 try {
+             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+         }
+		 JTextArea playerCountPrompt = new JTextArea();
+		 playerCountPrompt.setText("How many players?:");
+		 final JTextField playerCount = new JTextField();
+		 JButton playerCountConfirm = new JButton();
+		 playerCountConfirm.setText("Confirm");
+		 playerCountConfirm.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				playerCountNum = playerCount.getText();
+				frame.dispose();
+				setupPlayers(playerCountNum);
+			}
+		 });
+		 Dimension d = new Dimension(50, 10);
+		 playerCount.setPreferredSize(d);
+		 playerCount.setText("0");
+		 
+		//Setup Frame
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.setLayout(new BorderLayout());
+         frame.add(playerCountPrompt, BorderLayout.WEST);
+         frame.add(playerCount, BorderLayout.EAST);
+         frame.add(playerCountConfirm, BorderLayout.SOUTH);
+         frame.pack();
+         frame.setLocationRelativeTo(null);
+         frame.setVisible(true);
+         
+         
+	}
 	
 	public static void main(String[] args) {
 		Battle b = new Battle();
-		b.setupPlayers();
+		new Battle();
 		//do-while looping the next three methods if input is yes or y, print there's something in the darkness, investigate?: 
 		while(true){
 			System.out.println("Something lurks within the Darkness. Venture forth and investigate?");
@@ -35,19 +85,16 @@ public class Battle {
 		}
 	}
 	
-	public void setupPlayers(){
-		// Initialize the Characters and any monsters they will face
-		System.out.print("How many players?: ");
-		in = input.nextLine().trim();
+	public void setupPlayers(String playerCount){
 		//if the input was empty, or if the input was not all digits, loop until it is
-		while(in.equals("") || !in.matches("[0-9]+")){
+		while(playerCount.equals("") || !playerCount.matches("[0-9]+")){
 			System.out.print("Please enter a number: ");
-			in = input.nextLine().trim();
+			playerCount = input.nextLine().trim();
 		} 
 
 		// Setup all Characters
-		players = new Fighter[Integer.parseInt(in)];
-		for (int i = 0; i < Integer.parseInt(in); i++) {
+		players = new Fighter[Integer.parseInt(playerCount)];
+		for (int i = 0; i < Integer.parseInt(playerCount); i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
 			boolean classDefined = false;
