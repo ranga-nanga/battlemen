@@ -26,56 +26,38 @@ import battlemen.Fighter;
 
 public class Battle {
 	//gui components
-	public static JFrame frame = new JFrame("RPG");
+	//public static JFrame frame = new JFrame("RPG");
 	
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
 	Enemy Angorus = new Enemy("Angorus", 20, 1, 1);
 	static Scanner input = new Scanner(System.in);
 	static String in = "";
-	String playerCountNum = "";
 	
-	public Battle(){
-		 try {
-             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-         }
-		 JTextArea playerCountPrompt = new JTextArea();
-		 playerCountPrompt.setText("How many players?:");
-		 final JTextField playerCount = new JTextField();
-		 JButton playerCountConfirm = new JButton();
-		 playerCountConfirm.setText("Confirm");
-		 playerCountConfirm.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				playerCountNum = playerCount.getText();
-				frame.dispose();
-				setupPlayers(playerCountNum);
-			}
-		 });
-		 Dimension d = new Dimension(50, 10);
-		 playerCount.setPreferredSize(d);
-		 playerCount.setText("0");
-		 
-		//Setup Frame
-         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         frame.setLayout(new BorderLayout());
-         frame.add(playerCountPrompt, BorderLayout.WEST);
-         frame.add(playerCount, BorderLayout.EAST);
-         frame.add(playerCountConfirm, BorderLayout.SOUTH);
-         frame.pack();
-         frame.setLocationRelativeTo(null);
-         frame.setVisible(true);
-         
-         
-	}
+//	public Battle(){
+//		 try {
+//             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+//         }
+//		 
+//		//Setup Frame
+//         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//         frame.setLayout(new BorderLayout());
+//         frame.pack();
+//         frame.setLocationRelativeTo(null);
+//         frame.setVisible(true);
+//	}
 	
 	public static void main(String[] args) {
+		//new Battle();
+		setupPlayers();
+		encounter();
+	}
+	
+	public static void encounter(){
 		Battle b = new Battle();
-		new Battle();
-		//do-while looping the next three methods if input is yes or y, print there's something in the darkness, investigate?: 
 		while(true){
-			System.out.println("Something lurks within the Darkness. Venture forth and investigate?");
+			System.out.print("Something lurks within the Darkness. Venture forth and investigate?");
 			in = input.nextLine();
 			if(in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")){
 				b.turnSystem();
@@ -85,43 +67,55 @@ public class Battle {
 		}
 	}
 	
-	public void setupPlayers(String playerCount){
-		//if the input was empty, or if the input was not all digits, loop until it is
-		while(playerCount.equals("") || !playerCount.matches("[0-9]+")){
-			System.out.print("Please enter a number: ");
-			playerCount = input.nextLine().trim();
-		} 
-
+	public static void setupPlayers(){
 		// Setup all Characters
-		players = new Fighter[Integer.parseInt(playerCount)];
-		for (int i = 0; i < Integer.parseInt(playerCount); i++) {
+		int playerNum = 3;
+		players = new Fighter[playerNum];
+		for (int i = 0; i < playerNum; i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
 			String name = input.nextLine().trim();
-			boolean classDefined = false;
-			while(classDefined == false){
-				System.out.print("Pick " + name
-						+ "'s class(FGK, Rogue, Barbarian): ");
-				String playerClass = input.nextLine().trim();
-			
-				switch (playerClass) {
-					case "FGK":
-						players[i] = new FeathergaleKnight(name);
-						classDefined = true;
-						break;
-					case "Rogue":
-						players[i] = new Rogue(name);
-						classDefined = true;
-						break;
-					case "Barbarian":
-						players[i] = new Barbarian(name);
-						classDefined = true;
-						break;
-					default:
-						System.out.println("That is not a defined player class, pick another." + '\n');
-						break;
-				}
+			switch (i) {
+				case 0:
+					players[i] = new FeathergaleKnight(name);
+					break;
+				case 1:
+					players[i] = new Rogue(name);
+					break;
+				case 2:
+					players[i] = new Barbarian(name);
+					break;
+				case 3:
+					//players[i] = new Wizard(name);
 			}
 		}
+//		final int i = 0;
+//		final JTextArea playerNamePrompt = new JTextArea();
+//		final JTextField playerNameEntry = new JTextField();
+//		JButton playerNameConfirm = new JButton();
+//		JFrame namePrompt = new JFrame("Name player");
+//		 playerNamePrompt.setText("Player " + (i+1));
+//		 namePrompt.add(playerNamePrompt, BorderLayout.WEST);
+//		 namePrompt.add(playerNameConfirm, BorderLayout.SOUTH);
+//		 namePrompt.add(playerNameEntry, BorderLayout.EAST);
+//		 namePrompt.pack();
+//		 namePrompt.setLayout(new BorderLayout());
+//		 namePrompt.setLocationRelativeTo(null);
+//		 namePrompt.setVisible(true);
+//		 playerNameConfirm.setText("Confirm");
+//		 playerNameConfirm.addActionListener(new ActionListener(){
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				players[i].setFighterName(playerNameEntry.getText());
+//				if(i >= players.length){
+//					i++;
+//					playerNamePrompt.setText("Player " + (i+1));
+//					playerNameEntry.setText("");
+//				}
+//				setupPlayers();
+//			}
+//		 });
+//		 Dimension d = new Dimension(50, 10);
+//		 playerNameEntry.setPreferredSize(d);
 	}
 	
 	public void turnSystem(){
