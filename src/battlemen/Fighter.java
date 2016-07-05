@@ -175,6 +175,7 @@ public class Fighter {
 		this.fighterMaxHealth += Dice.rollDice(healthDie, 1);
 		System.out.println("You leveled up! Your Max Health is now "
 				+ this.fighterMaxHealth + " !");
+		this.fighterHealth = this.fighterMaxHealth;
 		System.out.println("You currently have " + this.fighterHealth
 				+ " HP out of " + this.fighterMaxHealth);
 	}

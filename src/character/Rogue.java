@@ -32,7 +32,7 @@ public class Rogue extends Fighter{
 		int roll = Dice.rollDice(20, 1);
 		if (roll > fighter.getFighterDefense()){
 		    System.out.println(this.fighterName + "'s attack hit " + fighter.getFighterName() + "!");
-		    int damage = (Dice.rollDice(this.fighterDmgDice, 1)+this.fighterStrength)*2;
+		    int damage = (Dice.rollDice(this.fighterDmgDice, 1)+this.fighterSTR)*2;
 		    int newHealth = fighter.getFighterHealth() - damage;	
 		    if(newHealth < 0){
 		    	fighter.setFighterHealth(0);

@@ -212,7 +212,6 @@ public class Battle {
 		System.out.println("Congratulations to the survivors, you have defeated the Monster!");
 		for(Fighter player : players){
 			player.newMaxFighterHealth();
-			player.fighterHealth = player.maxFighterHealth;
 		}	
 		System.out.println("But what horrors await you in the days to come...?");
 	}
