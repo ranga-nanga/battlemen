@@ -119,10 +119,10 @@ public class Battle {
 	}
 	
 	public void turnSystem(){
-		while (Angorus.getFighterHealth() > 0) {
+		while (Angorus.getFighterHP() > 0) {
 			//Added code to skip player if dead
 			for (int i = 0; i < players.length; i++) {
-				if(players[i].getFighterHealth() <= 0){
+				if(players[i].getFighterHP() <= 0){
 					System.out.println(players[i].getFighterName()+" has given into the darkness. They cannot fight.");
 				}else{
 					System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
@@ -136,15 +136,15 @@ public class Battle {
 					}
 					boolean actionFound = false;
 					while (actionFound == false) {
-						System.out.println(players[i].getFighterName() + "'s health: " + players[i].getFighterHealth());
-						System.out.println(Angorus.getFighterName() + "'s health: " + Angorus.getFighterHealth());
+						System.out.println(players[i].getFighterName() + "'s health: " + players[i].getFighterHP());
+						System.out.println(Angorus.getFighterName() + "'s health: " + Angorus.getFighterHP());
 						System.out.print("What will you do?: ");
 						in = input.nextLine().trim();
 						
 						if (in.equals("a")){
 							players[i].attacks(Angorus);
 							actionFound = true;
-							if(Angorus.getFighterHealth() < 0){
+							if(Angorus.getFighterHP() < 0){
 								break;
 							}
 						} else if(in.equals("i")){
@@ -176,7 +176,7 @@ public class Battle {
 				}
 			}
 			
-			if(Angorus.getFighterHealth() < 0){
+			if(Angorus.getFighterHP() < 0){
 				break;
 			}
 			//makes it to where monster attacks a random person on the field
@@ -199,7 +199,7 @@ public class Battle {
 		//Body count to show how many died fighting the monster(s)
 		System.out.println('\n' + "RIP:");
 		for(Fighter player: players){
-			if(player.getFighterHealth() == 0){
+			if(player.getFighterHP() == 0){
 				//TODO: remove players that died from the array
 				System.out.println(player.getFighterName() + " died in combat.");
 			}

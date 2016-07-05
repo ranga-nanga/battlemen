@@ -169,7 +169,6 @@ public class Fighter {
 		this.equipment.addAll(items);
 	}
 
-
 	public String getFighterName() {
 		return fighterName;
 	}
@@ -177,7 +176,6 @@ public class Fighter {
 	public void setFighterName(String newName) {
 		this.fighterName = newName;
 	}
-
 
 	public int getFighterDmgDice() {
 		return this.fighterDmgDice;
@@ -195,13 +193,12 @@ public class Fighter {
 		this.poisonCounter = newPoisonCounter;
 	}
 
-	
 	public void attacks(Fighter fighter) {
 		int roll = Dice.rollDice(20, 1);
 		System.out.println("Attack Roll: " + roll);
 		System.out.println(fighter.getFighterName() + "'s defense: "
-				+ fighter.getFighterDefense());
-		if (roll + this.fighterSTR > fighter.getFighterDefense()) {
+				+ fighter.getFighterPDefense());
+		if (roll + this.fighterSTR > fighter.getFighterPDefense()) {
 			System.out.println(this.fighterName + "'s attack hit "
 					+ fighter.getFighterName() + "!");
 			// calculate damage
