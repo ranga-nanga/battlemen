@@ -12,12 +12,12 @@ public class Fighter {
 	 * Default values for maxhealth, health and damage These values are
 	 * initialized when you create a new Hero in your Battle class
 	 */
-	
+
 	public String fighterName = "";
 	public int fighterLVL = 0, fighterMaxLVL = 99;
 	public int fighterXP = 0, fighterMaxXP = 0;
 	public int fighterVIT = 0, fighterMaxVIT = 255;
-	public int fighterHP = 0, fighterMaxHP= 0;
+	public int fighterHP = 0, fighterMaxHP = 0;
 	public int healthDie = 0;
 	public int fighterSTR = 0, fighterMaxSTR = 255;
 	public int fighterPAttack = 0;
@@ -45,30 +45,30 @@ public class Fighter {
 		this.equipment.addAll(list);
 	}
 
-	public int getFighterLVL(){
+	public int getFighterLVL() {
 		return this.fighterLVL;
 	}
-	
-	public void setFighterLVL(int newFighterLVL){
+
+	public void setFighterLVL(int newFighterLVL) {
 		this.fighterLVL = newFighterLVL;
 	}
-	
-	public int getFighterXP(){
+
+	public int getFighterXP() {
 		return this.fighterXP;
 	}
-	
-	public void setFighterXP(int newFighterXP){
+
+	public void setFighterXP(int newFighterXP) {
 		this.fighterXP = newFighterXP;
 	}
-	
-	public int getFighterVIT(){
+
+	public int getFighterVIT() {
 		return this.fighterVIT;
 	}
-	
-	public void setFighterVIT(int newFighterVIT){
+
+	public void setFighterVIT(int newFighterVIT) {
 		this.fighterVIT = newFighterVIT;
 	}
-	
+
 	public int getFighterHP() {
 		return this.fighterHP;
 	}
@@ -76,31 +76,31 @@ public class Fighter {
 	public void setFighterHP(int newFighterHP) {
 		this.fighterHP = newFighterHP;
 	}
-	
-	public int getFighterMaxHP(){
+
+	public int getFighterMaxHP() {
 		return this.fighterMaxHP;
 	}
-	
-	public void setFighterMaxHP(int newFighterMaxHP){
+
+	public void setFighterMaxHP(int newFighterMaxHP) {
 		this.fighterMaxHP = newFighterMaxHP;
 	}
-	
-	public int getFighterSTR(){
+
+	public int getFighterSTR() {
 		return this.fighterSTR;
 	}
-	
-	public void setFighterSTR(int newFighterSTR){
+
+	public void setFighterSTR(int newFighterSTR) {
 		this.fighterSTR = newFighterSTR;
 	}
-	
-	public int getFighterPAttack(){
+
+	public int getFighterPAttack() {
 		return this.fighterPAttack;
 	}
-	
-	public void setFighterPAttack(int newFighterPAttack){
+
+	public void setFighterPAttack(int newFighterPAttack) {
 		this.fighterPAttack = newFighterPAttack;
 	}
-	
+
 	public int getFighterPDefense() {
 		return this.fighterPDefense;
 	}
@@ -109,62 +109,62 @@ public class Fighter {
 		this.fighterPDefense = newFighterPDefense;
 	}
 
-	public int getFighterMND(){
+	public int getFighterMND() {
 		return this.fighterMND;
 	}
-	
-	public void setFighterMND(int newFighterMND){
+
+	public void setFighterMND(int newFighterMND) {
 		this.fighterMND = newFighterMND;
 	}
-	
-	public int getFighterMP(){
+
+	public int getFighterMP() {
 		return this.fighterMP;
 	}
-	
-	public void setFighterMP(int newFighterMP){
+
+	public void setFighterMP(int newFighterMP) {
 		this.fighterMP = newFighterMP;
 	}
-	
-	public int getFighterMaxMP(){
+
+	public int getFighterMaxMP() {
 		return this.fighterMaxMP;
 	}
-	
-	public void setFighterMaxMP(int newFighterMaxMP){
+
+	public void setFighterMaxMP(int newFighterMaxMP) {
 		this.fighterMaxMP = newFighterMaxMP;
 	}
-	
-	public int getfighterMAttack(){
+
+	public int getfighterMAttack() {
 		return this.fighterMAttack;
 	}
-	
-	public void setFighterMAttack(int newFighterMAttack){
+
+	public void setFighterMAttack(int newFighterMAttack) {
 		this.fighterMAttack = newFighterMAttack;
 	}
-	
-	public int getfighterMDefense(){
+
+	public int getfighterMDefense() {
 		return this.fighterMDefense;
 	}
-	
-	public void setFighterMDefense(int newFighterMDefense){
+
+	public void setFighterMDefense(int newFighterMDefense) {
 		this.fighterMDefense = newFighterMDefense;
 	}
 
-	public int getFighterEVA(){
+	public int getFighterEVA() {
 		return this.fighterEVA;
 	}
-	
-	public void setFighterEVA(int newFighterEVA){
+
+	public void setFighterEVA(int newFighterEVA) {
 		this.fighterEVA = newFighterEVA;
 	}
-	
-	public int getFighterAGI(){
+
+	public int getFighterAGI() {
 		return this.fighterAGI;
 	}
-	
-	public void setFighterAGI(int newFighterAGI){
+
+	public void setFighterAGI(int newFighterAGI) {
 		this.fighterAGI = newFighterAGI;
 	}
-	
+
 	public void setEquipment(List<Item> items) {
 		this.equipment.addAll(items);
 	}
@@ -193,26 +193,18 @@ public class Fighter {
 		this.poisonCounter = newPoisonCounter;
 	}
 
-	public void attacks(Fighter fighter) {
-		int roll = Dice.rollDice(20, 1);
-		System.out.println("Attack Roll: " + roll);
-		System.out.println(fighter.getFighterName() + "'s defense: "
-				+ fighter.getFighterPDefense());
-		if (roll + this.fighterSTR > fighter.getFighterPDefense()) {
-			System.out.println(this.fighterName + "'s attack hit "
-					+ fighter.getFighterName() + "!");
-			// calculate damage
-			int damage = Dice.rollDice(this.fighterDmgDice, 1); /*
-																 * + this.
-																 * fighterStrength
-																 * ;
-																 */
-			if (roll == 20) {
-				System.out.println("Critical Hit!");
-				damage = damage * 2;
-			}
+	public static boolean THEO(Fighter enemy){
+		if(this.fighterAGI/enemy.getFighterEVA >= Dice.rollDice(100,1)){
+		return true;
+		}else{
+		System.out.println("Attack Misses!");
+		return false;
+		}
 
-			// deal damage
+	public void attacks(Fighter fighter) {
+		boolean hit = fighter.THEO(enemy);
+		if (hit == true) {
+			int damage = STR / 2 + (this.fighterLVL / 2);
 			int newHealth = fighter.getFighterHP() - damage;
 
 			// prevent negative health
@@ -225,8 +217,6 @@ public class Fighter {
 					+ " damage!");
 			System.out.println(fighter.getFighterName() + " has "
 					+ fighter.getFighterHP() + " health left!");
-		} else {
-			System.out.println(this.fighterName + "'s attack missed!");
 		}
 		this.evaluate();
 	}
