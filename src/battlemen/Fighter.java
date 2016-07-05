@@ -193,18 +193,18 @@ public class Fighter {
 		this.poisonCounter = newPoisonCounter;
 	}
 
-	public static boolean THEO(Fighter enemy){
-		if(this.fighterAGI/enemy.getFighterEVA >= Dice.rollDice(100,1)){
+	public boolean THEO(Fighter Enemy){
+		if(this.fighterAGI/Enemy.getFighterEVA() >= Dice.rollDice(100,1)){
 		return true;
 		}else{
 		System.out.println("Attack Misses!");
 		return false;
 		}
-
+	}
 	public void attacks(Fighter fighter) {
-		boolean hit = fighter.THEO(enemy);
+		boolean hit = fighter.THEO(fighter);
 		if (hit == true) {
-			int damage = STR / 2 + (this.fighterLVL / 2);
+			int damage = this.fighterSTR / 2 + (this.fighterLVL / 2);
 			int newHealth = fighter.getFighterHP() - damage;
 
 			// prevent negative health
