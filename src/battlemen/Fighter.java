@@ -33,15 +33,28 @@ public class Fighter {
 	public int poisonCounter = 0;
 	public List<Item> equipment = new ArrayList<Item>();
 
-	public Fighter(String name, int health, int strength, int dmgDice,
-			int healthDie, List<Item> list) {
+	public Fighter(String name, int LVL, int XP, int VIT, int HP, int MaxHP, int STR, int dmgDice,
+			int healthDie, int PAttack, int PDefense, int MND, int MP, int MaxMP, int MAttack, 
+			int MDefense, int EVA, int AGI, List<Item> list) {
 		this.fighterName = name;
-		this.fighterHP = health;
-		this.fighterHP = health;
-		this.fighterSTR = strength;
-		this.fighterPDefense = (strength + health) / 2;
-		this.fighterDmgDice = dmgDice;
+		this.fighterLVL = LVL;
+		this.fighterXP = XP;
+		//TODO: Need to find out how we're going to do level up XP. this.fighterLVLUP?
+		this.fighterVIT = VIT;
+		this.fighterHP = HP;
+		this.fighterMaxHP = MaxHP;
 		this.healthDie = healthDie;
+		this.fighterSTR = STR;
+		this.fighterPAttack = PAttack;
+		this.fighterPDefense = PDefense;
+		this.fighterMND = MND;
+		this.fighterMP = MP;
+		this.fighterMaxMP =MaxMP;
+		this.fighterMAttack = MAttack;
+		this.fighterMDefense = MDefense;
+		this.fighterEVA = EVA;
+		this.fighterAGI = AGI;
+		this.fighterDmgDice = dmgDice;
 		this.equipment.addAll(list);
 	}
 
@@ -201,10 +214,23 @@ public class Fighter {
 			return false;
 		}
 	}
-	public void attacks(Fighter fighter) {
+	
+//TODO: create armorBonus percentages and defense values of different armors.
+//TODO: create weaponBonus percentages and attack values of different weapons.
+	public void PAttacks(Fighter fighter) {
 		if (THEO(fighter) == true) {
-			int damage = this.fighterSTR / 2 + (this.fighterLVL / 2);
-			int newHealth = fighter.getFighterHP() - damage;
+			this.fighterPAttack = ((this.fighterSTR / 2 + (this.fighterLVL / 2)) * ((255 -((fighter.getFighterAGI()/10)
+					+(fighter.getFighterSTR()/5)+(fighter.getFighterVIT()/10)/*+armorBonus*/)/256)+1))/*+ weaponBonus*/;
+			
+			//written is DEF =(AGI/10)+(STR/5)+(VIT/10)+ armorBonus. will get that worked out eventually...
+			//apologies if this is confusing, but I think you get what i'm trying to say, if not I can explain
+			//Condensed the following code into fighterPAttack. Does it still work?
+			//should do the left side and right side, then multiply them together.
+			//giving us the damage done after Defense&Damage Reduction. 
+			/*this.fighterPDefense = fighterPAttack *(255 -((fighter.getFighterAGI()/10)
+				+(fighter.getFighterSTR()/5)+(fighter.getFighterVIT()/10)/256)+1);
+				*/
+			int newHealth = fighter.getFighterHP() - fighterPAttack;
 
 			// prevent negative health
 			if (newHealth < 0) {
@@ -212,7 +238,7 @@ public class Fighter {
 			} else {
 				fighter.setFighterHP(newHealth);
 			}
-			System.out.println(fighter.getFighterName() + " took " + damage
+			System.out.println(fighter.getFighterName() + " took " + fighterPAttack
 					+ " damage!");
 			System.out.println(fighter.getFighterName() + " has "
 					+ fighter.getFighterHP() + " health left!");

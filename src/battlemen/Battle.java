@@ -142,7 +142,7 @@ public class Battle {
 						in = input.nextLine().trim();
 						
 						if (in.equals("a")){
-							players[i].attacks(Angorus);
+							players[i].PAttacks(Angorus);
 							actionFound = true;
 							if(Angorus.getFighterHP() < 0){
 								break;
@@ -181,7 +181,7 @@ public class Battle {
 			}
 			//makes it to where monster attacks a random person on the field
 			System.out.println('\n' + "The monster is attacking!");
-			Angorus.attacks(players[new Random().nextInt(players.length)]);
+			Angorus.PAttacks(players[new Random().nextInt(players.length)]);
 			
 			}
 	}
