@@ -34,10 +34,10 @@ public class Fighter {
 	public boolean poison = false;
 	public boolean hidden = false;
 	public int poisonCounter = 0;
-	public Weapon equippedWeapon = new Weapon("","");
-	public Armor equippedArmor = new Armor("","");
+//TODO: Add more equipment slots eventually?
+	public Weapon fighterWeaponSlot = new Weapon("","");
+	public Armor fighterArmorSlot = new Armor("","");
 	public List<Item> equipment = new ArrayList<Item>();
-
 	//TODO: create formulas for MaxHP and MaxMP.
 	
 	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, 
