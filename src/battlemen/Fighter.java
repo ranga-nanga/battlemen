@@ -1,5 +1,6 @@
 package battlemen;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,28 +31,24 @@ public class Fighter {
 	public int fighterAGI = 0, fighterMaxAGI = 255;
 	public int fighterDmgDice = 0;
 	public boolean poison = false;
+	public boolean hidden = false;
 	public int poisonCounter = 0;
 	public List<Item> equipment = new ArrayList<Item>();
 
-	public Fighter(String name, int LVL, int XP, int VIT, int HP, int MaxHP, int STR, int dmgDice,
-			int healthDie, int PAttack, int PDefense, int MND, int MP, int MaxMP, int MAttack, 
-			int MDefense, int EVA, int AGI, List<Item> list) {
+	//TODO: create formulas for MaxHP and MaxMP.
+	
+	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, int dmgDice,
+			int healthDie, int MND, int MP, int EVA, int AGI, List<Item> list) {
 		this.fighterName = name;
 		this.fighterLVL = LVL;
 		this.fighterXP = XP;
 		//TODO: Need to find out how we're going to do level up XP. this.fighterLVLUP?
 		this.fighterVIT = VIT;
 		this.fighterHP = HP;
-		this.fighterMaxHP = MaxHP;
 		this.healthDie = healthDie;
 		this.fighterSTR = STR;
-		this.fighterPAttack = PAttack;
-		this.fighterPDefense = PDefense;
 		this.fighterMND = MND;
 		this.fighterMP = MP;
-		this.fighterMaxMP =MaxMP;
-		this.fighterMAttack = MAttack;
-		this.fighterMDefense = MDefense;
 		this.fighterEVA = EVA;
 		this.fighterAGI = AGI;
 		this.fighterDmgDice = dmgDice;
@@ -106,22 +103,6 @@ public class Fighter {
 		this.fighterSTR = newFighterSTR;
 	}
 
-	public int getFighterPAttack() {
-		return this.fighterPAttack;
-	}
-
-	public void setFighterPAttack(int newFighterPAttack) {
-		this.fighterPAttack = newFighterPAttack;
-	}
-
-	public int getFighterPDefense() {
-		return this.fighterPDefense;
-	}
-
-	public void setFighterPDefense(int newFighterPDefense) {
-		this.fighterPDefense = newFighterPDefense;
-	}
-
 	public int getFighterMND() {
 		return this.fighterMND;
 	}
@@ -144,22 +125,6 @@ public class Fighter {
 
 	public void setFighterMaxMP(int newFighterMaxMP) {
 		this.fighterMaxMP = newFighterMaxMP;
-	}
-
-	public int getfighterMAttack() {
-		return this.fighterMAttack;
-	}
-
-	public void setFighterMAttack(int newFighterMAttack) {
-		this.fighterMAttack = newFighterMAttack;
-	}
-
-	public int getfighterMDefense() {
-		return this.fighterMDefense;
-	}
-
-	public void setFighterMDefense(int newFighterMDefense) {
-		this.fighterMDefense = newFighterMDefense;
 	}
 
 	public int getFighterEVA() {
@@ -205,9 +170,13 @@ public class Fighter {
 	public void setPoisonCounter(int newPoisonCounter) {
 		this.poisonCounter = newPoisonCounter;
 	}
-
+	
+	public void setHidden(boolean newHidden){
+		this.hidden = newHidden;
+	}
+	
 	public boolean THEO(Fighter Enemy){
-		if(this.fighterAGI/Enemy.getFighterEVA() >= Dice.rollDice(100,1)){
+		if(this.fighterAGI/Enemy.getFighterAGI() >= Dice.rollDice(100,1)){
 			return true;
 		}else{
 			System.out.println("Attack Misses!");
@@ -219,8 +188,12 @@ public class Fighter {
 //TODO: create weaponBonus percentages and attack values of different weapons.
 	public void PAttacks(Fighter fighter) {
 		if (THEO(fighter) == true) {
-			this.fighterPAttack = ((this.fighterSTR / 2 + (this.fighterLVL / 2)) * ((255 -((fighter.getFighterAGI()/10)
-					+(fighter.getFighterSTR()/5)+(fighter.getFighterVIT()/10)/*+armorBonus*/)/256)+1))/*+ weaponBonus*/;
+			this.fighterPAttack = ((this.getFighterSTR()/2) + ((this.getFighterLVL()/2) + (this.getFighterAGI()/10)));
+			
+			fighter.fighterPDefense = ((fighter.getFighterAGI()/10)+ (fighter.getFighterSTR()/5) + (fighter.getFighterVIT()/10));
+			
+			
+			int pDamage = ((this.fighterPAttack * (255 - fighter.fighterPDefense)) / 256 )+1;
 			
 			//written is DEF =(AGI/10)+(STR/5)+(VIT/10)+ armorBonus. will get that worked out eventually...
 			//apologies if this is confusing, but I think you get what i'm trying to say, if not I can explain
@@ -230,7 +203,7 @@ public class Fighter {
 			/*this.fighterPDefense = fighterPAttack *(255 -((fighter.getFighterAGI()/10)
 				+(fighter.getFighterSTR()/5)+(fighter.getFighterVIT()/10)/256)+1);
 				*/
-			int newHealth = fighter.getFighterHP() - fighterPAttack;
+			int newHealth = fighter.getFighterHP() - pDamage;
 
 			// prevent negative health
 			if (newHealth < 0) {
@@ -238,7 +211,7 @@ public class Fighter {
 			} else {
 				fighter.setFighterHP(newHealth);
 			}
-			System.out.println(fighter.getFighterName() + " took " + fighterPAttack
+			System.out.println(fighter.getFighterName() + " took " + pDamage
 					+ " damage!");
 			System.out.println(fighter.getFighterName() + " has "
 					+ fighter.getFighterHP() + " health left!");
@@ -315,3 +288,7 @@ public class Fighter {
 	}
 
 }
+
+
+
+
