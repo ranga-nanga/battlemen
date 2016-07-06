@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import equipment.Armor;
 import equipment.Item;
+import equipment.Weapon;
 import battlemen.Dice;
 
 public class Fighter {
@@ -29,15 +31,16 @@ public class Fighter {
 	public int fighterMDefense = 0;
 	public int fighterEVA = 0, fighterMaxEVA = 255;
 	public int fighterAGI = 0, fighterMaxAGI = 255;
-	public int fighterDmgDice = 0;
 	public boolean poison = false;
 	public boolean hidden = false;
 	public int poisonCounter = 0;
+	public Weapon equippedWeapon = new Weapon("","");
+	public Armor equippedArmor = new Armor("","");
 	public List<Item> equipment = new ArrayList<Item>();
 
 	//TODO: create formulas for MaxHP and MaxMP.
 	
-	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, int dmgDice,
+	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, 
 			int healthDie, int MND, int MP, int EVA, int AGI, List<Item> list) {
 		this.fighterName = name;
 		this.fighterLVL = LVL;
@@ -51,7 +54,6 @@ public class Fighter {
 		this.fighterMP = MP;
 		this.fighterEVA = EVA;
 		this.fighterAGI = AGI;
-		this.fighterDmgDice = dmgDice;
 		this.equipment.addAll(list);
 	}
 
@@ -153,14 +155,6 @@ public class Fighter {
 
 	public void setFighterName(String newName) {
 		this.fighterName = newName;
-	}
-
-	public int getFighterDmgDice() {
-		return this.fighterDmgDice;
-	}
-
-	public void setFighterDmgDice(int newDmgDice) {
-		this.fighterDmgDice = newDmgDice;
 	}
 
 	public void setPoison(boolean newPoison) {
