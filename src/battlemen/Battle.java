@@ -76,7 +76,7 @@ public class Battle {
 			String name = input.nextLine().trim();
 			switch (i) {
 				case 0:
-					players[i] = new FeathergaleKnight(name);
+					players[i] = new Knight(name);
 					break;
 				case 1:
 					players[i] = new Rogue(name);
