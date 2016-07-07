@@ -167,12 +167,13 @@ public class Fighter {
 //TODO: create armorBonus percentages and defense values of different armors.
 
 	public void PAttacks(Fighter fighter) {
+		int fighterPAttack = 0, enemyPDefense = 0;
 		if (THEO(fighter) == true) {
-			this.fighterPAttack = ((this.getFighterSTR()/2) + ((this.getFighterLVL()/2) + (this.getFighterAGI()/10)) /*+ WeaponSlot.dmgDie*/);
+			fighterPAttack = ((this.getFighterSTR()/2) + ((this.getFighterLVL()/2) + (this.getFighterAGI()/10)) + WeaponSlot.dmgDie);
 			
-			fighter.fighterPDefense = ((fighter.getFighterAGI()/10)+ (fighter.getFighterSTR()/5) + (fighter.getFighterVIT()/10));
+			enemyPDefense = ((fighter.getFighterAGI()/10)+ (fighter.getFighterSTR()/5) + (fighter.getFighterVIT()/10));
 				
-			int pDamage = ((this.fighterPAttack * (255 - fighter.fighterPDefense)) / 256 )+1;
+			int pDamage = ((fighterPAttack * (255 - enemyPDefense)) / 256 )+1;
 			int newHealth = fighter.getFighterHP() - pDamage;
 
 			// prevent negative health
