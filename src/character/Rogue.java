@@ -11,14 +11,19 @@ import battlemen.Fighter;
 
 public class Rogue extends Fighter{
 	
-	static int health = 5;
-	static int dmgDie = 8;
 	static int healthDie = 6;
-	static int strength = 6;
+	static int LVL = 1;
+	static int XP = 0;
+	static int VIT = 5;
+	static int HP = 7;
+	static int STR = 5;
+	static int MND = 7;
+	static int MP = 9;
+	static int  AGI = 10;
 	static List<Item> equipment = new ArrayList<Item>();
 	
 	public Rogue(String name) {
-		super(name, health, strength, dmgDie, healthDie, equipment);
+		super(name, LVL, XP, VIT, HP, STR, healthDie, MND, MP, AGI, equipment);
 		this.initEquip();
 	}
 	

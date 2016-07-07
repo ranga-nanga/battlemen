@@ -23,25 +23,20 @@ public class Fighter {
 	public int fighterHP = 0, fighterMaxHP = 0;
 	public int healthDie = 0;
 	public int fighterSTR = 0, fighterMaxSTR = 255;
-	public int fighterPAttack = 0;
-	public int fighterPDefense = 0;
 	public int fighterMND = 0, fighterMaxMND = 255;
 	public int fighterMP = 0, fighterMaxMP = 0;
-	public int fighterMAttack = 0;
-	public int fighterMDefense = 0;
-	public int fighterEVA = 0, fighterMaxEVA = 255;
 	public int fighterAGI = 0, fighterMaxAGI = 255;
 	public boolean poison = false;
 	public boolean hidden = false;
 	public int poisonCounter = 0;
 //TODO: Add more equipment slots eventually?
-	public Weapon fighterWeaponSlot = new Weapon("","");
-	public Armor fighterArmorSlot = new Armor("","");
+	public Weapon WeaponSlot = new Weapon("","");
+	public Armor ArmorSlot = new Armor("","");
 	public List<Item> equipment = new ArrayList<Item>();
 	//TODO: create formulas for MaxHP and MaxMP.
-	
+
 	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, 
-			int healthDie, int MND, int MP, int EVA, int AGI, List<Item> list) {
+			int healthDie, int MND, int MP, int AGI, List<Item> list) {
 		this.fighterName = name;
 		this.fighterLVL = LVL;
 		this.fighterXP = XP;
@@ -52,7 +47,6 @@ public class Fighter {
 		this.fighterSTR = STR;
 		this.fighterMND = MND;
 		this.fighterMP = MP;
-		this.fighterEVA = EVA;
 		this.fighterAGI = AGI;
 		this.equipment.addAll(list);
 	}
@@ -129,14 +123,6 @@ public class Fighter {
 		this.fighterMaxMP = newFighterMaxMP;
 	}
 
-	public int getFighterEVA() {
-		return this.fighterEVA;
-	}
-
-	public void setFighterEVA(int newFighterEVA) {
-		this.fighterEVA = newFighterEVA;
-	}
-
 	public int getFighterAGI() {
 		return this.fighterAGI;
 	}
@@ -179,24 +165,14 @@ public class Fighter {
 	}
 	
 //TODO: create armorBonus percentages and defense values of different armors.
-//TODO: create weaponBonus percentages and attack values of different weapons.
+
 	public void PAttacks(Fighter fighter) {
 		if (THEO(fighter) == true) {
-			this.fighterPAttack = ((this.getFighterSTR()/2) + ((this.getFighterLVL()/2) + (this.getFighterAGI()/10)));
+			this.fighterPAttack = ((this.getFighterSTR()/2) + ((this.getFighterLVL()/2) + (this.getFighterAGI()/10)) /*+ WeaponSlot.dmgDie*/);
 			
 			fighter.fighterPDefense = ((fighter.getFighterAGI()/10)+ (fighter.getFighterSTR()/5) + (fighter.getFighterVIT()/10));
-			
-			
+				
 			int pDamage = ((this.fighterPAttack * (255 - fighter.fighterPDefense)) / 256 )+1;
-			
-			//written is DEF =(AGI/10)+(STR/5)+(VIT/10)+ armorBonus. will get that worked out eventually...
-			//apologies if this is confusing, but I think you get what i'm trying to say, if not I can explain
-			//Condensed the following code into fighterPAttack. Does it still work?
-			//should do the left side and right side, then multiply them together.
-			//giving us the damage done after Defense&Damage Reduction. 
-			/*this.fighterPDefense = fighterPAttack *(255 -((fighter.getFighterAGI()/10)
-				+(fighter.getFighterSTR()/5)+(fighter.getFighterVIT()/10)/256)+1);
-				*/
 			int newHealth = fighter.getFighterHP() - pDamage;
 
 			// prevent negative health
@@ -245,10 +221,6 @@ public class Fighter {
 			if (item.getGroup().equalsIgnoreCase("potion")) {
 				int count = Integer.valueOf((String) item.getType());
 				item.setType(count - 1);
-				// TODO: make sure game doesn't crash after using a potion when
-				// have none
-				// tried to add code to stop game from failing if used too many
-				// potions
 				if (count == 0) {
 					System.out
 							.println("It would seem as though that you don't have one...");
