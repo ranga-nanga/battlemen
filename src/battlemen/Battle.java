@@ -111,7 +111,7 @@ public class Battle {
 			//Added code to skip player if dead
 			for (int i = 0; i < players.length; i++) {
 				if(players[i].getFighterHP() <= 0){
-					System.out.println(players[i].getFighterName()+" has given into the darkness. They cannot fight.");
+					System.out.println(players[i].getFighterName()+" has given into the darkness and cannot fight.");
 				}else{
 					System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
 					System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
@@ -167,11 +167,14 @@ public class Battle {
 			if(Angorus.getFighterHP() < 0){
 				break;
 			}
-			//makes it to where monster attacks a random person on the field
-			System.out.println('\n' + "The monster is attacking!");
-			Angorus.PAttacks(players[new Random().nextInt(players.length)]);
-			
+			//monster attacks a random character
+			int randomPlayer = new Random().nextInt(players.length);
+			while(players[randomPlayer].getFighterHP() <= 0){
+				randomPlayer = new Random().nextInt(players.length);
 			}
+			System.out.println('\n' + "The monster is attacking " + players[randomPlayer].getFighterName() + "!");
+			Angorus.PAttacks(players[randomPlayer]);
+		}
 	}
 	
 	//TODO: check if player died after the attack. and to print out that they died so it doesn't print out
