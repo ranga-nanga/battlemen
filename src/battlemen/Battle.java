@@ -1,27 +1,14 @@
 package battlemen;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import character.Barbarian;
-import character.FeathergaleKnight;
+import character.Knight;
 import character.Rogue;
-import equipment.Item;
+import character.Wizard;
 import battlemen.Fighter;
 
 public class Battle {
@@ -30,7 +17,7 @@ public class Battle {
 	
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
-	Enemy Angorus = new Enemy("Angorus", 20, 1, 1);
+	Enemy Angorus = new Enemy("Angorus");
 	static Scanner input = new Scanner(System.in);
 	static String in = "";
 	
@@ -57,7 +44,7 @@ public class Battle {
 	public static void encounter(){
 		Battle b = new Battle();
 		while(true){
-			System.out.print("Something lurks within the Darkness. Venture forth and investigate?");
+			System.out.print("Something lurks within the Darkness. Venture forth and investigate?: ");
 			in = input.nextLine();
 			if(in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")){
 				b.turnSystem();
@@ -69,7 +56,7 @@ public class Battle {
 	
 	public static void setupPlayers(){
 		// Setup all Characters
-		int playerNum = 3;
+		int playerNum = 4;
 		players = new Fighter[playerNum];
 		for (int i = 0; i < playerNum; i++) {
 			System.out.print('\n' + "Name player " + (i + 1) + ": ");
@@ -85,7 +72,8 @@ public class Battle {
 					players[i] = new Barbarian(name);
 					break;
 				case 3:
-					//players[i] = new Wizard(name);
+					players[i] = new Wizard(name);
+					break;
 			}
 		}
 //		final int i = 0;
