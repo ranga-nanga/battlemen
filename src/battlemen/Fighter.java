@@ -155,8 +155,10 @@ public class Fighter {
 		this.hidden = newHidden;
 	}
 	
-	public boolean THEO(Fighter Enemy){
-		if(this.fighterAGI/Enemy.getFighterAGI() >= Dice.rollDice(100,1)){
+	public boolean THEO(Fighter enemy){
+		if(enemy.getFighterAGI() == 0){
+			return true;
+		}else if(this.fighterAGI/enemy.getFighterAGI() >= Dice.rollDice(100,1)){
 			return true;
 		}else{
 			System.out.println("Attack Misses!");
