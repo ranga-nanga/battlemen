@@ -2,6 +2,8 @@ package dungeon;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicArrowButton;
+
+import battlemen.Battle;
 
 public class Main {
 
@@ -59,6 +63,12 @@ public class Main {
 		directionalPanel.add(left, BorderLayout.WEST);
 		
 		//Setup Action Buttons
+		fight.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Battle.encounter();
+			}
+    	});
 		actionPanel.add(steal);
 		actionPanel.add(disarm);
 		actionPanel.add(hide);

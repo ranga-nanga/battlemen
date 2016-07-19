@@ -9,6 +9,7 @@ import character.Barbarian;
 import character.Knight;
 import character.Rogue;
 import character.Wizard;
+import dungeon.Main;
 import battlemen.Fighter;
 
 public class Battle {
@@ -38,7 +39,8 @@ public class Battle {
 	public static void main(String[] args) {
 		//new Battle();
 		setupPlayers();
-		encounter();
+		new Main();
+//		encounter();
 	}
 	
 	public static void encounter(){
