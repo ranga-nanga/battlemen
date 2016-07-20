@@ -1,5 +1,7 @@
 package battlemen;
 
+import java.util.HashMap;
+
 public class PlayerStats {
 	
 	/*
@@ -26,4 +28,23 @@ public class PlayerStats {
 	 * 
 	 * 
 	 */
+	
+	public static void initializePlayer(Fighter fighter){
+		fighter.setFighterHP(healthDie + fighter.getFighterVIT());
+		fighter.setFighterMP((healthDie + fighter.getFighterMND()) * 2);
+	}
+	
+	public static void levelUp(Fighter fighter){
+		int baseSTR = fighter.getBaseSTR();
+		fighter.setFighterSTR(fighter.getFighterLVL() * ((baseSTR)/99));
+		int baseVIT = fighter.getBaseVIT();
+		fighter.setFighterVIT(fighter.getFighterLVL() * ((baseVIT)/99));
+		int baseAGI = fighter.getBaseAGI();
+		fighter.setFighterAGI(fighter.getFighterLVL() * ((baseAGI)/99));
+		int baseMND = fighter.getBaseMND();
+		fighter.setFighterSTR(fighter.getFighterLVL() * ((baseMND)/99));
+		
+		fighter.setFighterHP((fighter.getFighterVIT()/10) + (fighter.getFighterSTR()/10) + fighter.WeaponSlot.dmgDie); 
+		fighter.setFighterMP((fighter.getFighterVIT()/10) + (fighter.getFighterMND()/10) + fighter.WeaponSlot.dmgDie);
+	}
 }
