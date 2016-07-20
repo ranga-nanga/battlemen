@@ -20,8 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicArrowButton;
 
 import battlemen.Battle;
+import battlemen.Fighter;
 
 public class Main {
+	public static Fighter[] guiPlayers;
 
 	final static String path = System.getenv("TILE_PATH");	
 	public static File dir = new File(path);
@@ -48,7 +50,8 @@ public class Main {
 	
 	public static JLabel[][] picArray;
 	
-	public Main() {
+	public Main(Fighter[] players) {
+		guiPlayers = players;
 		//Setup Frame
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setLayout(new BorderLayout());
@@ -75,8 +78,11 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (directoryListing != null) {
+					//if the room is trapped and was never disarmed each player takes damage when leaving the room
 					if(roomTrap == true){
-						//TODO: player takes damage
+						for(Fighter f : guiPlayers){
+							f.setFighterHP(f.getFighterHP()-1);
+						}
 					}
 					Random r = new Random();
 					currImage = directoryListing[r.nextInt(directoryListing.length-1)].getName();
@@ -98,11 +104,13 @@ public class Main {
 				    if(currImage.contains("d")){
 				    	down.setEnabled(true);
 				    }
-				    if(currImage.contains("c")){
-				    	steal.setEnabled(true);
-				    	steal.setVisible(true);
+				    if(currImage.contains("c")){				    	
 				    	hide.setEnabled(true);
 				    	hide.setVisible(true);
+				    	if(guiPlayers[1].hidden == true){
+				    		steal.setEnabled(true);
+					    	steal.setVisible(true);
+				    	}
 				    }
 				    if(currImage.contains("t")){
 				    	disarm.setEnabled(true);
@@ -141,7 +149,9 @@ public class Main {
 		hide.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				//TODO: set rogue's hide attribute to true
+				guiPlayers[1].setHidden(true);
+				steal.setEnabled(true);
+		    	steal.setVisible(true);
 			}
 		});
 		
@@ -201,9 +211,5 @@ public class Main {
         }
         return dbi;
     }
-	
-	public static void main(String[] args){
-		Main m = new Main();
-		m.execute();
-	}
+
 }

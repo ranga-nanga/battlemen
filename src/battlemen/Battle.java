@@ -13,8 +13,6 @@ import dungeon.Main;
 import battlemen.Fighter;
 
 public class Battle {
-	//gui components
-	//public static JFrame frame = new JFrame("RPG");
 	
 	static Fighter[] players;
 	//TODO: create dynamic monster generation
@@ -39,7 +37,7 @@ public class Battle {
 	public static void main(String[] args) {
 		//new Battle();
 		setupPlayers();
-		new Main();
+		new Main(players);
 //		encounter();
 	}
 	
