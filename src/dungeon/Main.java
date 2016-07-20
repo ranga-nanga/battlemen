@@ -1,6 +1,7 @@
 package dungeon;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,6 +24,10 @@ import battlemen.Battle;
 public class Main {
 
 	final static String path = System.getenv("TILE_PATH");	
+	public static File dir = new File(path);
+	public static File[] directoryListing = dir.listFiles();
+	public static String currImage = "";
+	public static boolean roomTrap = false;
 	
 	public static JFrame main = new JFrame("Dungeon");
 	public static JPanel dungeonTilePanel = new JPanel();
@@ -39,6 +45,8 @@ public class Main {
 	public static JButton disarm = new JButton("Disarm Trap");
 	public static JButton fight = new JButton("Fight");
 	public static JButton hide = new JButton("Hide");
+	
+	public static JLabel[][] picArray;
 	
 	public Main() {
 		//Setup Frame
@@ -62,6 +70,59 @@ public class Main {
 		directionalPanel.add(down, BorderLayout.SOUTH);
 		directionalPanel.add(left, BorderLayout.WEST);
 		
+		//Setup and add arrow button listeners
+		ActionListener move = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (directoryListing != null) {
+					if(roomTrap == true){
+						//TODO: player takes damage
+					}
+					Random r = new Random();
+					currImage = directoryListing[r.nextInt(directoryListing.length-1)].getName();
+				    displayTile(currImage);
+				    
+				    //default all buttons to disabled
+				    resetButtons(directionalPanel);
+				    resetButtons(controlPanel);
+				    roomTrap = false;
+				    if(currImage.contains("u")){
+				    	up.setEnabled(true);
+				    }
+				    if(currImage.contains("l")){
+				    	left.setEnabled(true);
+				    } 
+				    if(currImage.contains("r")){
+				    	right.setEnabled(true);
+				    }
+				    if(currImage.contains("d")){
+				    	down.setEnabled(true);
+				    }
+				    if(currImage.contains("c")){
+				    	steal.setEnabled(true);
+				    	steal.setVisible(true);
+				    	hide.setEnabled(true);
+				    	hide.setVisible(true);
+				    }
+				    if(currImage.contains("t")){
+				    	disarm.setEnabled(true);
+				    	disarm.setVisible(true);
+				    	roomTrap = true;
+				    }
+				    if(currImage.contains("m")){
+				    	fight.setEnabled(true);
+				    	fight.setVisible(true);
+				    }
+				} else {
+					System.out.println("No Dungeon Tiles in filepath: " + path);
+				}
+			}
+		};
+		right.addActionListener(move);
+		left.addActionListener(move);
+		up.addActionListener(move);
+		down.addActionListener(move);
+		
 		//Setup Action Buttons
 		fight.addActionListener(new ActionListener(){
 			@Override
@@ -69,28 +130,52 @@ public class Main {
 				Battle.encounter();
 			}
     	});
+		
+		disarm.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				roomTrap = false;
+			}
+		});
+		
+		hide.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				//TODO: set rogue's hide attribute to true
+			}
+		});
+		
+		steal.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO: generate random item
+				//TODO: put item in player's inventory
+			}
+		});
+		
 		actionPanel.add(steal);
 		actionPanel.add(disarm);
 		actionPanel.add(hide);
 		actionPanel.add(fight);
 		
-		//TODO: Add arrow button listeners
 		//TODO: include an nxn array to store filenames of already visited rooms in case of loopbacks
-		//TODO: Add action button listeners
 		
 		main.pack();
 		main.setLocationRelativeTo(null);
 		main.setVisible(true);
 	}
 	
+	public void resetButtons(JPanel panel){
+		Component[] components = panel.getComponents();
+		for(Component c : components){
+			c.setEnabled(false);
+		}
+	}
+	
 	public void execute(){
 		//Start tile is displayed
 		String fileName = "start.png";
 		displayTile(fileName);
-		//TODO: determine valid directions(by filename? udlr#.png)
-		//TODO: enable - disable arrow buttons based on valid directions
-		//TODO: determine valid actions and therefore buttons to be shown
-		//TODO: setvisible to true-false for action buttons
 	}
 	
 	public void displayTile(String fileName){
@@ -119,6 +204,6 @@ public class Main {
 	
 	public static void main(String[] args){
 		Main m = new Main();
-		//m.execute();
+		m.execute();
 	}
 }
