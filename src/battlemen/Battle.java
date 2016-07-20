@@ -10,6 +10,8 @@ import character.Knight;
 import character.Rogue;
 import character.Wizard;
 import dungeon.Main;
+import equipment.Item;
+import equipment.Utility;
 import battlemen.Fighter;
 
 public class Battle {
@@ -37,8 +39,8 @@ public class Battle {
 	public static void main(String[] args) {
 		//new Battle();
 		setupPlayers();
-		new Main(players);
-//		encounter();
+		//new Main(players);
+		encounter();
 	}
 	
 	public static void encounter(){
@@ -138,7 +140,25 @@ public class Battle {
 						} else if(in.equals("i")){
 							players[i].inventory();
 						} else if(in.contains("use")){
-							players[i].useItem(in.substring(4));
+							//Loop through players inventory, check for item, invoke useItem on it
+							boolean itemFound = false;
+							Item[] inv = players[i].characterInventory;
+							for(int k = 0; k <=inv.length-1; k++){
+								if(inv[k] != null && inv[k].getType().equals(in.substring(4))){
+									System.out.println("Found Item");
+									if(inv[k].getClass().getName().contains("Utility")){
+										System.out.println("casting to utility");
+										Utility u = (Utility) inv[k];
+										System.out.println("Casted item to Utility, using utility");
+										u.useUtility(players[i]);
+										System.out.println("Used utility");
+									}
+									itemFound = true;
+								}
+							}
+							if(itemFound == false){
+								System.out.println("It would seem you don't have one of those...");
+							}
 							actionFound = true;
 						} else {
 							for (Method action : actions) {

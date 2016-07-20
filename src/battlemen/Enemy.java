@@ -16,7 +16,7 @@ public class Enemy extends Fighter{
 	static int MND = 7;
 	static int MP = 9;
 	static int  AGI = 10;
-	static List<Item> equipment = new ArrayList<Item>();
+	static Item[] equipment;
 	
 	public Enemy(String name) {
 		super(name, LVL, XP, VIT, HP, STR, healthDie, MND, MP, AGI, equipment);

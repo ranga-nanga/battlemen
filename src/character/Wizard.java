@@ -1,9 +1,6 @@
 package character;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import equipment.Blade;
+import equipment.Club;
 import equipment.Item;
 import equipment.Utility;
 import battlemen.Fighter;
@@ -19,15 +16,15 @@ public class Wizard extends Fighter{
 	static int MND = 0;
 	static int MP = 0;
 	static int AGI = 0;
-	static List<Item> equipment = new ArrayList<Item>();
+	static Item[] equipment = new Item[10];
 	
 	public Wizard(String name) {
 		super(name, LVL, XP, VIT, HP, STR, healthDie, MND, MP, AGI, equipment);
 		this.initEquip();
 	}
 	private void initEquip(){
-		equipment.add(new Blade("sickle"));
-		equipment.add(new Utility("potion", 3));
+		equipment[0] = new Club("staff");
+		equipment[1] = new Utility("potion", 3);
 		this.setEquipment(equipment);
 	}
 }

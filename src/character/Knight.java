@@ -1,8 +1,5 @@
 package character;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import equipment.Blade;
 import equipment.Item;
 import equipment.Utility;
@@ -22,7 +19,7 @@ public class Knight extends Fighter{
 	static int MND = 7;
 	static int MP = 9;
 	static int  AGI = 10;
-	static List<Item> equipment = new ArrayList<Item>();
+	static Item[] equipment = new Item[10];
 	
 	public Knight(String name){
 		super(name, LVL, XP, VIT, HP, STR, healthDie, MND, MP, AGI, equipment);
@@ -30,8 +27,8 @@ public class Knight extends Fighter{
 	}
 	
 	private void initEquip(){
-		equipment.add(new Blade("broadsword"));
-		equipment.add(new Utility("potion", 3));
+		equipment[0] = new Blade("broadsword");
+		equipment[1] = new Utility("potion", 3);
 		this.setEquipment(equipment);
 	}
 	

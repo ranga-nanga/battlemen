@@ -7,10 +7,11 @@ import java.util.List;
 
 import equipment.Armor;
 import equipment.Item;
+import equipment.Utility;
 import equipment.Weapon;
 import battlemen.Dice;
 
-public class Fighter {
+public class Fighter{
 	/*
 	 * Default values for maxhealth, health and damage These values are
 	 * initialized when you create a new Hero in your Battle class
@@ -32,11 +33,11 @@ public class Fighter {
 //TODO: Add more equipment slots eventually?
 	public Weapon WeaponSlot = new Weapon("","");
 	public Armor ArmorSlot = new Armor("","");
-	public List<Item> equipment = new ArrayList<Item>();
+	public Item[] characterInventory;
 	//TODO: create formulas for MaxHP and MaxMP.
 
 	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, 
-			int healthDie, int MND, int MP, int AGI, List<Item> list) {
+			int healthDie, int MND, int MP, int AGI, Item[] items) {
 		this.fighterName = name;
 		this.fighterLVL = LVL;
 		this.fighterXP = XP;
@@ -48,7 +49,7 @@ public class Fighter {
 		this.fighterMND = MND;
 		this.fighterMP = MP;
 		this.fighterAGI = AGI;
-		this.equipment.addAll(list);
+		this.characterInventory = items;
 	}
 
 	public int getFighterLVL() {
@@ -131,8 +132,8 @@ public class Fighter {
 		this.fighterAGI = newFighterAGI;
 	}
 
-	public void setEquipment(List<Item> items) {
-		this.equipment.addAll(items);
+	public void setEquipment(Item[] items) {
+		this.characterInventory = items;
 	}
 
 	public String getFighterName() {
@@ -193,43 +194,18 @@ public class Fighter {
 	}
 
 	public void inventory() {
-		for (Item i : equipment) {
-			System.out.println(i.getType() + " " + i.getGroup());
-		}
-	}
-
-	public void useItem(String item) {
-		switch (item) {
-		case "potion":
-			usePotion();
-			break;
-		}
-	}
-
-	public void usePotion() {
-		int healthDifference = fighterMaxHP - fighterHP;
-		if (healthDifference > 3) {
-			healthDifference = 3;
-		}
-		fighterHP += healthDifference;
-		if (healthDifference == 1) {
-			System.out.println(this.fighterName + " heals for 1 point!");
-		} else {
-			System.out.println(this.fighterName + " heals for "
-					+ healthDifference + " points!");
-		}
-		System.out.println(this.fighterName + " now has " + this.fighterHP
-				+ " health!");
-		for (Item item : equipment) {
-			if (item.getGroup().equalsIgnoreCase("potion")) {
-				int count = Integer.valueOf((String) item.getType());
-				item.setType(count - 1);
-				if (count == 0) {
-					System.out
-							.println("It would seem as though that you don't have one...");
+		Item[] inv = this.characterInventory;
+		for(int i = 0; i <=inv.length-1; i++){
+			try{
+				String className = inv[i].getClass().getName();
+				if(className.contains("Utility")){
+					Utility u = (Utility) inv[i];
+					System.out.println((i+1) + ". " + u.getType() + " " + u.getAmount());
 				} else {
-
+					System.out.println((i+1) + ". " + inv[i].getType() + " " + inv[i].getGroup());
 				}
+			} catch(NullPointerException e){
+				//Empty slot
 			}
 		}
 	}
