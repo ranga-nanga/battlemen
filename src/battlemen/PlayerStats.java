@@ -30,8 +30,8 @@ public class PlayerStats {
 	 */
 	
 	public static void initializePlayer(Fighter fighter){
-		fighter.setFighterHP(healthDie + fighter.getFighterVIT());
-		fighter.setFighterMP((healthDie + fighter.getFighterMND()) * 2);
+		fighter.setFighterHP(fighter.healthDie + fighter.getFighterVIT());
+		fighter.setFighterMP((fighter.healthDie + fighter.getFighterMND()) * 2);
 	}
 	
 	public static void levelUp(Fighter fighter){
