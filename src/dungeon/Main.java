@@ -159,6 +159,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//TODO: generate random item
+				//TODO: ask which player should take item
 				//TODO: put item in player's inventory
 			}
 		});

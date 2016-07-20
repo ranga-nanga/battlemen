@@ -159,7 +159,7 @@ public class Fighter{
 	public boolean THEO(Fighter enemy){
 		if(enemy.getFighterAGI() == 0){
 			return true;
-		}else if(this.fighterAGI/enemy.getFighterAGI() >= Dice.rollDice(100,1)){
+		}else if((this.fighterAGI/enemy.getFighterAGI()) >= (Dice.rollDice(100,1)/100)){
 			return true;
 		}else{
 			System.out.println("Attack Misses!");

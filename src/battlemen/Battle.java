@@ -111,9 +111,11 @@ public class Battle {
 	public void turnSystem(){
 		while (Angorus.getFighterHP() > 0) {
 			//Added code to skip player if dead
-			for (int i = 0; i < players.length; i++) {
+			for (int i = 0; i < players.length-1; i++) {
 				if(players[i].getFighterHP() <= 0){
 					System.out.println(players[i].getFighterName()+" has given into the darkness and cannot fight.");
+				} else if(Angorus.getFighterHP() <= 0){
+					break;
 				}else{
 					System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
 					System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
@@ -134,9 +136,6 @@ public class Battle {
 						if (in.equals("a")){
 							players[i].PAttacks(Angorus);
 							actionFound = true;
-							if(Angorus.getFighterHP() < 0){
-								break;
-							}
 						} else if(in.equals("i")){
 							players[i].inventory();
 						} else if(in.contains("use")){
@@ -145,13 +144,9 @@ public class Battle {
 							Item[] inv = players[i].characterInventory;
 							for(int k = 0; k <=inv.length-1; k++){
 								if(inv[k] != null && inv[k].getType().equals(in.substring(4))){
-									System.out.println("Found Item");
 									if(inv[k].getClass().getName().contains("Utility")){
-										System.out.println("casting to utility");
 										Utility u = (Utility) inv[k];
-										System.out.println("Casted item to Utility, using utility");
 										u.useUtility(players[i]);
-										System.out.println("Used utility");
 									}
 									itemFound = true;
 								}
@@ -184,16 +179,18 @@ public class Battle {
 				}
 			}
 			
-			if(Angorus.getFighterHP() < 0){
+			if(Angorus.getFighterHP() <= 0){
+				System.out.println("The monster is dead!");
 				break;
+			} else {
+				//monster attacks a random character
+				int randomPlayer = new Random().nextInt(players.length);
+				while(players[randomPlayer].getFighterHP() <= 0){
+					randomPlayer = new Random().nextInt(players.length);
+				}
+				System.out.println('\n' + "The monster is attacking " + players[randomPlayer].getFighterName() + "!");
+				Angorus.PAttacks(players[randomPlayer]);
 			}
-			//monster attacks a random character
-			int randomPlayer = new Random().nextInt(players.length);
-			while(players[randomPlayer].getFighterHP() <= 0){
-				randomPlayer = new Random().nextInt(players.length);
-			}
-			System.out.println('\n' + "The monster is attacking " + players[randomPlayer].getFighterName() + "!");
-			Angorus.PAttacks(players[randomPlayer]);
 		}
 	}
 	
@@ -217,6 +214,7 @@ public class Battle {
 		}
 	}
 
+	//TODO: put level up in playerStats class
 	public void levelUp(){
 		//TODO: add exp point system?
 		//TODO: add money/gil/gold system for eventual shop?
