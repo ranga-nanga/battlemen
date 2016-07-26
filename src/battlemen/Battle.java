@@ -2,6 +2,8 @@ package battlemen;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,29 +19,13 @@ import battlemen.Fighter;
 public class Battle {
 	
 	static Fighter[] players;
-	//TODO: create dynamic monster generation
+	//TODO: create dynamic monster generation, see line 39
 	Enemy Angorus = new Enemy("Angorus");
 	static Scanner input = new Scanner(System.in);
 	static String in = "";
 	
-//	public Battle(){
-//		 try {
-//             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-//         }
-//		 
-//		//Setup Frame
-//         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         frame.setLayout(new BorderLayout());
-//         frame.pack();
-//         frame.setLocationRelativeTo(null);
-//         frame.setVisible(true);
-//	}
-	
 	public static void main(String[] args) {
-		//new Battle();
 		setupPlayers();
-		//new Main(players);
 		encounter();
 	}
 	
@@ -49,6 +35,8 @@ public class Battle {
 			System.out.print("Something lurks within the Darkness. Venture forth and investigate?: ");
 			in = input.nextLine();
 			if(in.equalsIgnoreCase("yes") || in.equalsIgnoreCase("y")){
+				System.out.println("It's a hostile creature!");
+				//TODO: generate creature dynamically
 				b.turnSystem();
 				b.bodyCount();
 				b.levelUp();
@@ -65,10 +53,10 @@ public class Battle {
 			String name = input.nextLine().trim();
 			switch (i) {
 				case 0:
-					players[i] = new Knight(name);
+					players[i] = new Rogue(name);
 					break;
 				case 1:
-					players[i] = new Rogue(name);
+					players[i] = new Knight(name);
 					break;
 				case 2:
 					players[i] = new Barbarian(name);
@@ -78,39 +66,10 @@ public class Battle {
 					break;
 			}
 		}
-//		final int i = 0;
-//		final JTextArea playerNamePrompt = new JTextArea();
-//		final JTextField playerNameEntry = new JTextField();
-//		JButton playerNameConfirm = new JButton();
-//		JFrame namePrompt = new JFrame("Name player");
-//		 playerNamePrompt.setText("Player " + (i+1));
-//		 namePrompt.add(playerNamePrompt, BorderLayout.WEST);
-//		 namePrompt.add(playerNameConfirm, BorderLayout.SOUTH);
-//		 namePrompt.add(playerNameEntry, BorderLayout.EAST);
-//		 namePrompt.pack();
-//		 namePrompt.setLayout(new BorderLayout());
-//		 namePrompt.setLocationRelativeTo(null);
-//		 namePrompt.setVisible(true);
-//		 playerNameConfirm.setText("Confirm");
-//		 playerNameConfirm.addActionListener(new ActionListener(){
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				players[i].setFighterName(playerNameEntry.getText());
-//				if(i >= players.length){
-//					i++;
-//					playerNamePrompt.setText("Player " + (i+1));
-//					playerNameEntry.setText("");
-//				}
-//				setupPlayers();
-//			}
-//		 });
-//		 Dimension d = new Dimension(50, 10);
-//		 playerNameEntry.setPreferredSize(d);
 	}
 	
 	public void turnSystem(){
 		while (Angorus.getFighterHP() > 0) {
-			//Added code to skip player if dead
 			for (int i = 0; i < players.length-1; i++) {
 				if(players[i].getFighterHP() <= 0){
 					System.out.println(players[i].getFighterName()+" has given into the darkness and cannot fight.");
@@ -120,6 +79,7 @@ public class Battle {
 					System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
 					System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");
 					System.out.println("3. " + players[i].getFighterName()+ " use [item]");
+					System.out.println("4. " + players[i].getFighterName()+ " equip [weapon]");
 					Method[] actions = players[i].getClass().getDeclaredMethods();
 					int j = 4;
 					for (Method method : actions) {
@@ -128,7 +88,7 @@ public class Battle {
 					}
 					boolean actionFound = false;
 					while (actionFound == false) {
-						System.out.println(players[i].getFighterName() + "'s health: " + players[i].getFighterHP());
+						System.out.println('\n' + players[i].getFighterName() + "'s health: " + players[i].getFighterHP());
 						System.out.println(Angorus.getFighterName() + "'s health: " + Angorus.getFighterHP());
 						System.out.print("What will you do?: ");
 						in = input.nextLine().trim();
@@ -155,6 +115,14 @@ public class Battle {
 								System.out.println("It would seem you don't have one of those...");
 							}
 							actionFound = true;
+						} else if(in.contains("equip")){
+							if(players[i].equip(in.substring(6))){
+								System.out.println(in.substring(6) + " equipped!");
+								players[i].inventory();
+								actionFound = true;
+							} else {
+								System.out.println(in.substring(6) + " not found in inventory/not a weapon");
+							}
 						} else {
 							for (Method action : actions) {
 								//Have to call Character methods directly
@@ -194,24 +162,20 @@ public class Battle {
 		}
 	}
 	
-	//TODO: check if player died after the attack. and to print out that they died so it doesn't print out
-	
-	//might have to delete from here
-	//public int target(){
-	//players[new Random().nextInt(players.length)] ;
-	//}
-	//to here
-	
-	
 	public void bodyCount(){
 		//Body count to show how many died fighting the monster(s)
 		System.out.println('\n' + "RIP:");
+		List<Fighter> survivors = new ArrayList<Fighter>();
+		//loop through players finding survivors
 		for(Fighter player: players){
-			if(player.getFighterHP() == 0){
-				//TODO: remove players that died from the array
+			if(player.getFighterHP() <= 0){
 				System.out.println(player.getFighterName() + " died in combat.");
+			} else {
+				survivors.add(player);
 			}
 		}
+		//update players array with survivors
+		players = survivors.toArray(new Fighter[survivors.size()]);
 	}
 
 	//TODO: put level up in playerStats class

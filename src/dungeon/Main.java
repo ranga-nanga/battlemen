@@ -25,12 +25,15 @@ import battlemen.Fighter;
 public class Main {
 	public static Fighter[] guiPlayers;
 
+	//Class variables
 	final static String path = System.getenv("TILE_PATH");	
 	public static File dir = new File(path);
 	public static File[] directoryListing = dir.listFiles();
 	public static String currImage = "";
 	public static boolean roomTrap = false;
+	public static String[][] minimap;
 	
+	//GUI components
 	public static JFrame main = new JFrame("Dungeon");
 	public static JPanel dungeonTilePanel = new JPanel();
 	public static JPanel messagePanel = new JPanel();
@@ -159,7 +162,7 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//TODO: generate random item
-				//TODO: ask which player should take item
+				//TODO: popup with character selection(only characters w/ hp > 0)
 				//TODO: put item in player's inventory
 			}
 		});
@@ -187,6 +190,7 @@ public class Main {
 		//Start tile is displayed
 		String fileName = "start.png";
 		displayTile(fileName);
+		minimap[0][0] = fileName;
 	}
 	
 	public void displayTile(String fileName){

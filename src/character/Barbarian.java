@@ -20,11 +20,9 @@ public class Barbarian extends Fighter{
 	
 	public Barbarian(String name) {
 		super(name, LVL, XP, VIT, HP, STR, healthDie, MND, MP, AGI, equipment);
-		this.initEquip();
-	}
-	private void initEquip(){
-		equipment[0] = new Blade("axe");
-		equipment[1] = new Utility("potion", 3);
+		this.WeaponSlot = new Blade("axe");
+		equipment[0] = new Utility("potion", 3);
 		this.setEquipment(equipment);
 	}
+	
 }

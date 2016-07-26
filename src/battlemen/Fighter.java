@@ -2,8 +2,12 @@ package battlemen;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import equipment.Armor;
 import equipment.Item;
@@ -208,15 +212,37 @@ public class Fighter{
 				//Empty slot
 			}
 		}
+		System.out.println("Weapon Equipped: " + this.WeaponSlot.getType()+ " " + this.WeaponSlot.getGroup());
 	}
 
+	public boolean equip(String itemType){
+		boolean weaponFound = false;
+		List<Item> inv = new CopyOnWriteArrayList<Item>(Arrays.asList(this.characterInventory));
+		Iterator<Item> it = inv.iterator();
+		while(it.hasNext()){
+			Item item = it.next();
+			if(item != null && !item.group.equals("Utility") && item.type.equals(itemType)){
+				//get previously equipped weapon
+				Item w = this.WeaponSlot;
+				if(w != null){
+					//put previously equipped weapon in array in place of newly equipped weapon
+					inv.set(inv.indexOf(item), w);
+				}
+				//equip item
+				this.WeaponSlot = (Weapon) item;
+				this.characterInventory = inv.toArray(new Item[inv.size()]);
+				weaponFound = true;
+			}
+		}
+		return weaponFound;
+	}
+	
 	public void newMaxFighterHealth() {
 		this.fighterMaxHP += Dice.rollDice(healthDie, 1);
-		System.out.println("You leveled up! Your Max Health is now "
-				+ this.fighterMaxHP + " !");
+		System.out.println(this.fighterName + " leveled up! Max Health is now "
+				+ this.fighterMaxHP + "!");
 		this.fighterHP = this.fighterMaxHP;
-		System.out.println("You currently have " + this.fighterHP
-				+ " HP out of " + this.fighterMaxHP);
+		System.out.println(this.fighterName + " currently has " + this.fighterHP + " HP");
 	}
 
 	public void evaluate() {

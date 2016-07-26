@@ -24,12 +24,9 @@ public class Rogue extends Fighter{
 	
 	public Rogue(String name) {
 		super(name, LVL, XP, VIT, HP, STR, healthDie, MND, MP, AGI, equipment);
-		this.initEquip();
-	}
-	
-	private void initEquip(){
-		equipment[0] = new Blade("rapier");
-		equipment[1] = new Utility("potion", 3);
+		this.WeaponSlot = new Blade("rapier");
+		equipment[0] = new Utility("potion", 3);
+		equipment[1] = new Blade("dagger");
 		this.setEquipment(equipment);
 	}
 
