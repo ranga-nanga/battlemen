@@ -236,7 +236,6 @@ public class Fighter{
 	public void newMaxFighterHealth() {
 		int hp = Dice.rollDice(healthDie, 1);
 		this.fighterMaxHP += hp;
-		System.out.println("Rolled: " + hp);
 		System.out.println(this.fighterName + " leveled up! Max Health is now "
 				+ this.fighterMaxHP + "!");
 		this.fighterHP = this.fighterMaxHP;

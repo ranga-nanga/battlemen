@@ -33,16 +33,20 @@ public class Utility extends Item{
 		
 		//Heal fighter
 		int healthDifference = fighter.fighterMaxHP - fighter.fighterHP;
-		if (healthDifference > 3) {
-			healthDifference = 3;
+		if (healthDifference == 0) {
+			System.out.println("Fighter already at max health.");
+		} else if(healthDifference > 0){ 
+			if (healthDifference > 3) {
+				healthDifference = 3;
+			}
+			fighter.fighterHP += healthDifference;
+			if (healthDifference == 1) {
+				System.out.println(fighter.fighterName + " heals for 1 point!");
+			} else {
+				System.out.println(fighter.fighterName + " heals for " + healthDifference + " points!");
+			}
+			System.out.println(fighter.fighterName + " now has " + fighter.fighterHP + " health!");
 		}
-		fighter.fighterHP += healthDifference;
-		if (healthDifference == 1) {
-			System.out.println(fighter.fighterName + " heals for 1 point!");
-		} else {
-			System.out.println(fighter.fighterName + " heals for " + healthDifference + " points!");
-		}
-		System.out.println(fighter.fighterName + " now has " + fighter.fighterHP + " health!");
 	}
 		
 }

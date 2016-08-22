@@ -12,6 +12,7 @@ import character.Knight;
 import character.Rogue;
 import character.Wizard;
 import dungeon.Main;
+import enemy.Enemy;
 import equipment.Item;
 import equipment.Utility;
 import battlemen.Fighter;
@@ -19,10 +20,9 @@ import battlemen.Fighter;
 public class Battle {
 	
 	static Fighter[] players;
-	//TODO: create dynamic monster generation, see line 39
-	Enemy Angorus = new Enemy("Angorus");
 	static Scanner input = new Scanner(System.in);
 	static String in = "";
+	Enemy Angorus = new Enemy("Angorus");
 	
 	public static void main(String[] args) {
 		setupPlayers();
@@ -71,10 +71,11 @@ public class Battle {
 	public void turnSystem(){
 		while (Angorus.getFighterHP() > 0) {
 			for (int i = 0; i < players.length-1; i++) {
+				if(Angorus.getFighterHP() <= 0){
+					break;
+				} 
 				if(players[i].getFighterHP() <= 0){
 					System.out.println(players[i].getFighterName()+" has given into the darkness and cannot fight.");
-				} else if(Angorus.getFighterHP() <= 0){
-					break;
 				}else{
 					System.out.println('\n' + "1. "+ players[i].getFighterName()+ " [a]ttack");
 					System.out.println("2. " + players[i].getFighterName()+ " [i]nventory");

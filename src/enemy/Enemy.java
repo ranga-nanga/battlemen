@@ -1,8 +1,9 @@
-package battlemen;
+package enemy;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import battlemen.Fighter;
 import equipment.Item;
 
 public class Enemy extends Fighter{
