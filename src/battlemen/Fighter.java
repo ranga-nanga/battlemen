@@ -1,11 +1,7 @@
 package battlemen;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -38,7 +34,6 @@ public class Fighter{
 	public Weapon WeaponSlot = new Weapon("","");
 	public Armor ArmorSlot = new Armor("","");
 	public Item[] characterInventory;
-	//TODO: create formulas for MaxHP and MaxMP.
 
 	public Fighter(String name, int LVL, int XP, int VIT, int HP, int STR, 
 			int healthDie, int MND, int MP, int AGI, Item[] items) {
@@ -54,6 +49,7 @@ public class Fighter{
 		this.fighterMP = MP;
 		this.fighterAGI = AGI;
 		this.characterInventory = items;
+		//TODO: create formulas for MaxHP and MaxMP.
 	}
 
 	public int getFighterLVL() {
@@ -238,7 +234,9 @@ public class Fighter{
 	}
 	
 	public void newMaxFighterHealth() {
-		this.fighterMaxHP += Dice.rollDice(healthDie, 1);
+		int hp = Dice.rollDice(healthDie, 1);
+		this.fighterMaxHP += hp;
+		System.out.println("Rolled: " + hp);
 		System.out.println(this.fighterName + " leveled up! Max Health is now "
 				+ this.fighterMaxHP + "!");
 		this.fighterHP = this.fighterMaxHP;
